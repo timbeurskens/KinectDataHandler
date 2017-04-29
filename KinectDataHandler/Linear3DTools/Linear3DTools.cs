@@ -228,6 +228,26 @@ namespace KinectDataHandler.Linear3DTools
         {
             return Scale(-1);
         }
+
+        public IVector3D RotateX(double angle)
+        {
+            return new Vector3D(X, Y * Math.Cos(angle) - Z * Math.Sin(angle), Y * Math.Sin(angle) + Z * Math.Cos(angle));
+        }
+
+        public IVector3D RotateY(double angle)
+        {
+            return new Vector3D(X * Math.Cos(angle) + Z * Math.Sin(angle), Y, - X * Math.Sin(angle) + Z * Math.Cos(angle));
+        }
+
+        public IVector3D RotateZ(double angle)
+        {
+            return new Vector3D(X * Math.Cos(angle) - Y * Math.Sin(angle), X * Math.Sin(angle) + Y * Math.Cos(angle), Z);
+        }
+
+        public IVector3D Rotate(double rx, double ry, double rz)
+        {
+            return RotateX(rx).RotateY(ry).RotateZ(rz);
+        }
     }
 
     internal class LineSeg3D : ICurve3D
@@ -322,6 +342,10 @@ namespace KinectDataHandler.Linear3DTools
         IVector3D Scale(double scalar);
         IVector3D Scale(IVector3D scalar);
         IVector3D Invert();
+        IVector3D RotateX(double angle);
+        IVector3D RotateY(double angle);
+        IVector3D RotateZ(double angle);
+        IVector3D Rotate(double rx, double ry, double rz);
         double Dot(IVector3D vec);
         IVector3D Cross(IVector3D vec);
     }

@@ -7,6 +7,11 @@ using Microsoft.Kinect;
 
 namespace KinectDataHandler.BodyAnalyzer
 {
+    /// <summary>
+    /// ConstantBodyAnalyzer
+    /// Whether a given property is constant (bounded)
+    /// Iff the check fails, the OnValueComputed event is invoked.
+    /// </summary>
     public abstract class ConstantBodyAnalyzer : BodyAnalyzer<bool>
     {
         private bool _isValid = true;

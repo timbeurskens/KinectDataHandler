@@ -25,10 +25,10 @@ namespace KinectDataHandlerTest
             var r = new Random();
             for (var i = 0; i < 100; i++)
             {
-                Vector3D a = new Vector3D(r.Next(100), r.Next(100), r.Next(100));
-                Vector3D b = new Vector3D(r.Next(100), r.Next(100), r.Next(100));
-                Vector3D cross_a = (Vector3D)a.Cross(b);
-                Vector3D cross_b = (Vector3D)b.Cross(a);
+                var a = new Vector3D(r.Next(100), r.Next(100), r.Next(100));
+                var b = new Vector3D(r.Next(100), r.Next(100), r.Next(100));
+                var crossA = (Vector3D)a.Cross(b);
+                var crossB = (Vector3D)b.Cross(a);
 
                 Console.WriteLine(Vector3D.XUnit3D);
                 Console.WriteLine(Vector3D.YUnit3D);
@@ -37,37 +37,20 @@ namespace KinectDataHandlerTest
                 Console.WriteLine(a);
                 Console.WriteLine(b);
 
-                Console.WriteLine(cross_a);
-                Console.WriteLine(cross_b);
+                Console.WriteLine(crossA);
+                Console.WriteLine(crossB);
 
-                //Assert.IsTrue(EqualVectors(cross_b.Invert() as Vector3D, cross_a));
-                Assert.IsTrue(cross_b.Dot(a) < 0.1);
-                Assert.IsTrue(cross_a.Dot(a) < 0.1);
-                Assert.IsTrue(cross_b.Dot(b) < 0.1);
-                Assert.IsTrue(cross_a.Dot(b) < 0.1);
+                Assert.IsTrue(EqualVectors(crossB.Invert() as Vector3D, crossA));
+                Assert.IsTrue(crossB.Dot(a) < 0.01);
+                Assert.IsTrue(crossA.Dot(a) < 0.01);
+                Assert.IsTrue(crossB.Dot(b) < 0.01);
+                Assert.IsTrue(crossA.Dot(b) < 0.01);
             }
         }
 
         public bool EqualVectors(Vector3D a, Vector3D b)
         {
             return Math.Abs(a.X - b.X) < 0.1 && Math.Abs(a.Y - b.Y) < 0.1 && Math.Abs(a.Z - b.Z) < 0.1;
-        }
-
-        [TestMethod]
-        public void TestDictionary()
-        {
-            IDictionary<int, int> dict = new Dictionary<int, int>();
-            for (var i = 0; i < 10; i++)
-            {
-                dict.Add(i, i);
-                
-            }
-            Assert.AreEqual(10, dict.Count);
-            for (var i = 0; i < 10; i++)
-            {
-                dict.Add(i, i * 2);
-            }
-            Assert.AreEqual(10, dict.Count);
         }
 
         [TestMethod]
@@ -80,19 +63,7 @@ namespace KinectDataHandlerTest
             Assert.AreEqual(5, a.Z);
 
         }
-
-        [TestMethod]
-        public void TestCrossProduct()
-        {
-//            var a = new Vector3D(1, 0, 0);
-//            var b = new Vector3D(0, 0, 1);
-//
-//            Assert.AreEqual(0, a.Cross(b));
-//            Assert.AreEqual(0, b.Cross(a));
-//            Assert.AreEqual(1, a.Cross(a));
-//            Assert.AreEqual(1, b.Cross(b));
-        }
-
+        
         [TestMethod]
         public void TestCrossProductSpecial1()
         {
@@ -114,9 +85,9 @@ namespace KinectDataHandlerTest
         [TestMethod]
         public void TestAdd()
         {
-            Vector3D a = Vector3D.XUnit3D;
-            Vector3D b = Vector3D.YUnit3D;
-            Vector3D c = Vector3D.ZUnit3D;
+            var a = Vector3D.XUnit3D;
+            var b = Vector3D.YUnit3D;
+            var c = Vector3D.ZUnit3D;
             Assert.AreEqual(Vector3D.Unit3D, a + b + c);
         }
     }

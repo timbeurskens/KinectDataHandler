@@ -51,6 +51,8 @@
     <Compile Include="BodyAnalyzer\BodySmoother.cs" />
     <Compile Include="BodyAnalyzer\ConstantBodyAnalyzer.cs" />
     <Compile Include="BodyAnalyzer\NotTrackedException.cs" />
+    <Compile Include="BodyAnalyzer\ProgressiveBodyAnalyzer.cs" />
+    <Compile Include="BodyAnalyzer\ProgressiveBodyAnalyzerState.cs" />
     <Compile Include="FeedbackComLink.cs" />
     <Compile Include="KinectLink.cs" />
     <Compile Include="Linear3DTools\KinectMathAdapter.cs" />
