@@ -85,7 +85,8 @@ namespace KinectDataHandler.BodyAnalyzer
 
         public double GetBodyLength()
         {
-            return _fq.Average();
+            var t = (FloodQueue<double>)_fq.Clone();
+            return t.Average();
         }
 
         public override double GetValue()

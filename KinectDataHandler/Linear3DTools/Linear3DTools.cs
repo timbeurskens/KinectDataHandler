@@ -26,7 +26,7 @@ namespace KinectDataHandler.Linear3DTools
         /// <param name="z">X</param>
         /// <param name="y">Y</param>
         /// <param name="x">Z</param>
-        public Vector3D(double z, double y, double x)
+        public Vector3D(double x, double y, double z)
         {
             Z = z;
             Y = y;
@@ -91,7 +91,11 @@ namespace KinectDataHandler.Linear3DTools
 
         public IVector3D Cross(IVector3D vec)
         {
-            return (Vector3D)(XUnit3D * (Y * vec.Z - Z * vec.Y)) - (Vector3D)(YUnit3D * (X * vec.Z - Z * vec.X)) + (Vector3D)(ZUnit3D * (X * vec.Y - Y * vec.X));
+            var xpart = (Vector3D)((Y * vec.Z - Z * vec.Y) * XUnit3D);
+            var ypart = (Vector3D)((Z * vec.X - X * vec.Z) * YUnit3D);
+            var zpart = (Vector3D)((X * vec.Y - Y * vec.X) * ZUnit3D);
+
+            return (Vector3D)(xpart + ypart) + zpart;
         }
 
         public double Length()
@@ -104,6 +108,23 @@ namespace KinectDataHandler.Linear3DTools
             var dot = this * vec;
             var len = Length() * vec.Length();
             return Math.Acos(dot / len);
+        }
+
+        public override bool Equals(object other)
+        {
+            var i = other as IVector3D;
+            return X.Equals(i?.X) && Y.Equals(i?.Y) && Z.Equals(i?.Z);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hashCode = X.GetHashCode();
+                hashCode = (hashCode * 397) ^ Y.GetHashCode();
+                hashCode = (hashCode * 397) ^ Z.GetHashCode();
+                return hashCode;
+            }
         }
 
         /// <summary>
@@ -220,6 +241,24 @@ namespace KinectDataHandler.Linear3DTools
             Point2 = point2;
         }
 
+        public bool IsOn(IPoint3D point)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ISurface3D Normal(IPoint3D point)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IVector3D Tangent(IPoint3D point)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    internal class Line3D : ICurve3D
+    {
         public bool IsOn(IPoint3D point)
         {
             throw new NotImplementedException();

@@ -1,10 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace KinectDataHandler.SpecialStructures
 {
-    internal class FloodQueue<T> : IEnumerable<T>
+    internal class FloodQueue<T> : IEnumerable<T>, ICloneable
     {
         private readonly int _capacity;
         private readonly List<T> _hiddenQueue;
@@ -25,6 +27,14 @@ namespace KinectDataHandler.SpecialStructures
             if (_hiddenQueue.Count <= _capacity) return;
             OnFloodQueueCapacityReached(this);
             RemoveLast();
+        }
+
+        public void AddAll(ICollection<T> elements)
+        {
+            foreach (var element in elements)
+            {
+                Add(element);
+            }
         }
 
         public void RemoveLast()
@@ -54,9 +64,18 @@ namespace KinectDataHandler.SpecialStructures
             return _hiddenQueue.GetEnumerator();
         }
 
+        public int Count => _hiddenQueue.Count;
+
         protected virtual void OnFloodQueueCapacityReached(FloodQueue<T> queue)
         {
             FloodQueueCapacityReached?.Invoke(queue);
+        }
+
+        public object Clone()
+        {
+            var nfq = new FloodQueue<T>(_capacity);
+            nfq.AddAll(_hiddenQueue);
+            return nfq;
         }
     }
 }

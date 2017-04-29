@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Security.Permissions;
+using Microsoft.Kinect;
 
 namespace KinectDataHandler.BodyAnalyzer
 {
@@ -7,7 +8,7 @@ namespace KinectDataHandler.BodyAnalyzer
     {
         private BodyAnalyzer<double> _lengthAnalyzer;
         public BodyAnalyzer<string> BodySerializer;
-        private FeedbackComLink _com = new FeedbackComLink();
+        private readonly FeedbackComLink _com = new FeedbackComLink();
 
         public AnalyzerStateManager(KinectLink kl)
         {

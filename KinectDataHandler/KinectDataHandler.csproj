@@ -48,6 +48,8 @@
     <Compile Include="BodyAnalyzer\BodyLengthAnalyzer.cs" />
     <Compile Include="BodyAnalyzer\BodyAnalyzer.cs" />
     <Compile Include="BodyAnalyzer\BodySerializer.cs" />
+    <Compile Include="BodyAnalyzer\BodySmoother.cs" />
+    <Compile Include="BodyAnalyzer\ConstantBodyAnalyzer.cs" />
     <Compile Include="BodyAnalyzer\NotTrackedException.cs" />
     <Compile Include="FeedbackComLink.cs" />
     <Compile Include="KinectLink.cs" />

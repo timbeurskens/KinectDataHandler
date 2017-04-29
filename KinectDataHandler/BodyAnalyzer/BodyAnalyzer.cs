@@ -4,6 +4,7 @@ namespace KinectDataHandler.BodyAnalyzer
 {
     public abstract class BodyAnalyzer<T>
     {
+        private bool _singleEvent = true;
         private bool _onValueComputedEventFired = false;
         protected readonly ulong TrackingId;
 
@@ -21,6 +22,18 @@ namespace KinectDataHandler.BodyAnalyzer
             TrackingId = trackingId;
         }
 
+        protected BodyAnalyzer(Body b, bool singleEvent) : this(b)
+        {
+            _singleEvent = singleEvent;
+        }
+
+        protected BodyAnalyzer(ulong trackingId, bool singleEvent) : this(trackingId)
+        {
+            _singleEvent = singleEvent;
+        }
+
+        public void SetSingleEvent(bool v) => _singleEvent = v;
+
         public bool PassBody(Body b)
         {
             if (b.TrackingId != TrackingId) return false;
@@ -35,7 +48,7 @@ namespace KinectDataHandler.BodyAnalyzer
         {
             if (_onValueComputedEventFired) return;
             ValueComputed?.Invoke(value);
-            _onValueComputedEventFired = true;
+            _onValueComputedEventFired = _singleEvent;
         }
 
         protected virtual void ForceOnValueComputed(T value)
