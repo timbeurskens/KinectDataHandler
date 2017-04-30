@@ -1,4 +1,6 @@
-﻿using KinectDataHandler.Linear3DTools;
+﻿using System;
+using System.Runtime.Remoting.Messaging;
+using KinectDataHandler.Linear3DTools;
 using Microsoft.Kinect;
 
 namespace KinectDataHandler
@@ -8,6 +10,10 @@ namespace KinectDataHandler
         //sensor and body frame reader
         private readonly KinectSensor _sensor;
         private BodyFrameReader _reader;
+
+        public delegate void FloorPlaneAvailableListener(Plane3D p);
+
+        public event FloorPlaneAvailableListener FloorPlaneAvailable;
 
         public delegate void BodyDataAvailableListener(Body b);
         public event BodyDataAvailableListener BodyDataAvailable;
@@ -32,23 +38,35 @@ namespace KinectDataHandler
         {
             using (var frame = e.FrameReference.AcquireFrame())
             {
-                var p = KinectMathAdapter.Plane3DFromVector4(frame.FloorClipPlane);
-
-                //TODO: handle floor plane
+                var fp = KinectMathAdapter.Plane3DFromVector4(frame.FloorClipPlane);
+                
+                OnFloorPlaneAvailable(fp);
 
                 var bodies = new Body[frame.BodyCount];
                 frame.GetAndRefreshBodyData(bodies);
                 foreach (var body in bodies)
                 {
                     if (!body.IsTracked) continue;
-                    BodyDataAvailable?.BeginInvoke(body, ar => { }, this);
+                    BodyDataAvailable?.BeginInvoke(body, EndAsyncEvent, null);
                 }
             }
+        }
+
+        private static void EndAsyncEvent(IAsyncResult ar)
+        {
+            var r = ar as AsyncResult;
+            var m = r?.AsyncDelegate as EventHandler;
+            m?.EndInvoke(r);
         }
 
         public void Close()
         {
             _sensor.Close();
+        }
+
+        protected virtual void OnFloorPlaneAvailable(Plane3D p)
+        {
+            FloorPlaneAvailable?.BeginInvoke(p, EndAsyncEvent, null);
         }
     }
 }

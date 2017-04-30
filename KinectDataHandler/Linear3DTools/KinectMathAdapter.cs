@@ -20,9 +20,7 @@ namespace KinectDataHandler.Linear3DTools
 
         public static Plane3D Plane3DFromVector4(Vector4 v4)
         {
-            //TODO: implement function
-            //rep := v4(a, b, c, d) :: ax + by + cz + d == 0
-            return new Plane3D();
+            return new Plane3D(v4.X, v4.Y, v4.Z, v4.W);
         }
     }
 

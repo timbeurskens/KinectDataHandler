@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Kinect;
+﻿using Microsoft.Kinect;
 
 namespace KinectDataHandler.BodyAnalyzer
 {
@@ -15,7 +10,7 @@ namespace KinectDataHandler.BodyAnalyzer
     /// </summary>
     public abstract class ProgressiveBodyAnalyzer : BodyAnalyzer<ProgressiveBodyAnalyzerState>
     {
-        private ProgressiveBodyAnalyzerState _state = ProgressiveBodyAnalyzerState.Idle;
+        protected ProgressiveBodyAnalyzerState State = ProgressiveBodyAnalyzerState.Idle;
 
         protected ProgressiveBodyAnalyzer(Body b) : base(b, false)
         {
@@ -27,12 +22,12 @@ namespace KinectDataHandler.BodyAnalyzer
 
         public override ProgressiveBodyAnalyzerState GetValue()
         {
-            return _state;
+            return State;
         }
 
         protected override void DoReset()
         {
-            _state = ProgressiveBodyAnalyzerState.Idle;
+            State = ProgressiveBodyAnalyzerState.Idle;
         }
     }
 }

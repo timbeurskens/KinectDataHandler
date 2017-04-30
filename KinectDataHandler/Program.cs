@@ -11,11 +11,19 @@ namespace KinectDataHandler
             kl.Open();
 
             var sm = new AnalyzerStateManager(kl);
-
+            ConsoleKeyInfo key;
             do
             {
-                ;
-            } while (Console.ReadKey().KeyChar != 'q');
+                key = Console.ReadKey();
+                switch (key.KeyChar)
+                {
+                    case 'r':
+                        sm.Reset();
+                        break;
+                    default:
+                        break;
+                }
+            } while (key.KeyChar != 'q');
 
             kl.Close();
         }

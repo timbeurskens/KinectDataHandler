@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using KinectDataHandler.Linear3DTools;
 
@@ -20,20 +19,52 @@ namespace KinectDataHandlerTest
         }
 
         [TestMethod]
+        public void TestPlane3D1()
+        {
+            var p = new Plane3D(1, 0, 0, 0);
+            Assert.AreEqual(new Vector3D(1, 0, 0), p.Normal());
+        }
+
+        [TestMethod]
+        public void TestPlane3D2()
+        {
+            var v = new Vector3D(1, 0, 0);
+            var po = new Vector3D(0, 0, 0);
+            var p = new Plane3D(v, po);
+            Assert.AreEqual(new Vector3D(1, 0, 0), p.Normal());
+        }
+
+        [TestMethod]
+        public void TestPlane3D3()
+        {
+            var v1 = new Vector3D(1, 0, 0);
+            var v2 = new Vector3D(0, 1, 0);
+            var p0 = new Vector3D(0) as IPoint3D;
+            var p = new Plane3D(v1, v2, p0);
+            Assert.AreEqual(new Vector3D(0, 0, 1), p.Normal());
+        }
+
+        [TestMethod]
+        public void TestPlane3D4()
+        {
+            var p1 = new Vector3D(1, 0, 0) as IPoint3D;
+            var p2 = new Vector3D(0, 1, 0) as IPoint3D;
+            var p0 = new Vector3D(0) as IPoint3D;
+            var p = new Plane3D(p0, p1, p2);
+            Assert.AreEqual(new Vector3D(0, 0, 1), p.Normal());
+        }
+
+        [TestMethod]
         public void RandomizedCrossProductTest()
         {
             var r = new Random();
-            for (var i = 0; i < 100; i++)
+            for (var i = 0; i < 10; i++)
             {
                 var a = new Vector3D(r.Next(100), r.Next(100), r.Next(100));
                 var b = new Vector3D(r.Next(100), r.Next(100), r.Next(100));
                 var crossA = (Vector3D)a.Cross(b);
                 var crossB = (Vector3D)b.Cross(a);
-
-                Console.WriteLine(Vector3D.XUnit3D);
-                Console.WriteLine(Vector3D.YUnit3D);
-                Console.WriteLine(Vector3D.ZUnit3D);
-
+                
                 Console.WriteLine(a);
                 Console.WriteLine(b);
 
@@ -61,7 +92,6 @@ namespace KinectDataHandlerTest
             Assert.AreEqual(5, a.X);
             Assert.AreEqual(5, a.Y);
             Assert.AreEqual(5, a.Z);
-
         }
         
         [TestMethod]
@@ -75,7 +105,7 @@ namespace KinectDataHandlerTest
         {
             Assert.AreEqual(Vector3D.XUnit3D, Vector3D.YUnit3D.Cross(Vector3D.ZUnit3D));
         }
-
+        
         [TestMethod]
         public void TestCrossProductSpecial3()
         {

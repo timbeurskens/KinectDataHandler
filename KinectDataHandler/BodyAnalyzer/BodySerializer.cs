@@ -1,5 +1,4 @@
-﻿using System;
-using KinectDataHandler.Linear3DTools;
+﻿using KinectDataHandler.Linear3DTools;
 using Microsoft.Kinect;
 
 namespace KinectDataHandler.BodyAnalyzer
@@ -54,7 +53,7 @@ namespace KinectDataHandler.BodyAnalyzer
 
         protected override void DoReset()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
     }
 }

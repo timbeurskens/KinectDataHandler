@@ -5,7 +5,7 @@ namespace KinectDataHandler.BodyAnalyzer
     public abstract class BodyAnalyzer<T>
     {
         private bool _singleEvent = true;
-        private bool _onValueComputedEventFired = false;
+        private bool _onValueComputedEventFired;
         protected readonly ulong TrackingId;
 
         public delegate void ValueComputedDelegate(T value);
