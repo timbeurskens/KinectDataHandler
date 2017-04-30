@@ -6,6 +6,7 @@ namespace KinectDataHandler.BodyAnalyzer
 {
     internal class AnalyzerStateManager
     {
+        private SquatCompoundBodyAnalyzer _squatCompoundBodyAnalyzer;
         private KneeAngleProgressiveBodyAnalyzer _angleProgressive;
         private FootKneeConstantBodyAnalyzer _footKneeConstantBody;
         private BodyAnalyzer<double> _lengthAnalyzer;
@@ -22,10 +23,17 @@ namespace KinectDataHandler.BodyAnalyzer
         private void Kl_FloorPlaneAvailable(Plane3D p)
         {
             if (_footKneeConstantBody != null) _footKneeConstantBody.FloorPlane3D = p;
+            if (_squatCompoundBodyAnalyzer != null) _squatCompoundBodyAnalyzer.FloorPlane = p;
         }
 
         private void Kl_BodyDataAvailable(Body b)
         {
+            if (_squatCompoundBodyAnalyzer == null)
+            {
+                _squatCompoundBodyAnalyzer = new SquatCompoundBodyAnalyzer(b);
+                _squatCompoundBodyAnalyzer.ValueComputed += _squatCompoundBodyAnalyzer_ValueComputed1;
+            }
+
             if (_angleProgressive == null)
             {
                 _angleProgressive = new KneeAngleProgressiveBodyAnalyzer(b, Math.PI * 0.9, 10, Math.PI / 2);
@@ -50,14 +58,21 @@ namespace KinectDataHandler.BodyAnalyzer
                 _footKneeConstantBody.ValueComputed += _footKneeConstantBody_ValueComputed;
             }
 
-            _lengthAnalyzer.PassBody(b);
-            BodySerializer.PassBody(b);
-            _footKneeConstantBody.PassBody(b);
-            _angleProgressive.PassBody(b);
+            _squatCompoundBodyAnalyzer.PassBody(b);
+            Console.WriteLine(_squatCompoundBodyAnalyzer.GetValue());
+//            _lengthAnalyzer.PassBody(b);
+//            BodySerializer.PassBody(b);
+//            _footKneeConstantBody.PassBody(b);
+//            _angleProgressive.PassBody(b);
 
             //Console.WriteLine(_footKneeConstantBody.GetValue());
         }
 
+        private void _squatCompoundBodyAnalyzer_ValueComputed1(ProgressiveBodyAnalyzerState value)
+        {
+            Console.WriteLine(value);
+        }
+        
         private void _angleProgressive_ValueComputed(ProgressiveBodyAnalyzerState value)
         {
             Console.WriteLine(value.ToString());
@@ -82,6 +97,7 @@ namespace KinectDataHandler.BodyAnalyzer
 
         public void Reset()
         {
+            _squatCompoundBodyAnalyzer?.Reset();
             _footKneeConstantBody?.Reset();
             BodySerializer?.Reset();
             _lengthAnalyzer?.Reset();

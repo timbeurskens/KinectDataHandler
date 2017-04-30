@@ -34,7 +34,7 @@ namespace KinectDataHandler.BodyAnalyzer
             return (p - _startTreshold) / (_endTreshold - _startTreshold);
         }
 
-        protected override bool HandleBody(Body b)
+        public override bool HandleBody(Body b)
         {
             //for now, take average of left, right
             try
@@ -45,7 +45,7 @@ namespace KinectDataHandler.BodyAnalyzer
                 var p = Map(avgAngle);
                 var step = (int) Math.Floor(p * _numSteps);
                 UpdateAnalyzerState(step);
-                Console.WriteLine(_position);
+                //Console.WriteLine(_position);
             }
             catch (NotTrackedException)
             {

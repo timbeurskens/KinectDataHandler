@@ -1,4 +1,5 @@
-﻿using Microsoft.Kinect;
+﻿using System;
+using Microsoft.Kinect;
 
 namespace KinectDataHandler.BodyAnalyzer
 {
@@ -6,7 +7,8 @@ namespace KinectDataHandler.BodyAnalyzer
     {
         private bool _singleEvent = true;
         private bool _onValueComputedEventFired;
-        protected readonly ulong TrackingId;
+        protected internal ulong TrackingId;
+        
 
         public delegate void ValueComputedDelegate(T value);
 
@@ -40,7 +42,7 @@ namespace KinectDataHandler.BodyAnalyzer
             return b.IsTracked && HandleBody(b);
         }
 
-        protected abstract bool HandleBody(Body b);
+        public abstract bool HandleBody(Body b);
         public abstract T GetValue();
         protected abstract void DoReset();
 
@@ -66,5 +68,6 @@ namespace KinectDataHandler.BodyAnalyzer
             ResetOnValueComputedEvent();
             DoReset();
         }
+        
     }
 }

@@ -18,7 +18,7 @@ namespace KinectDataHandler.BodyAnalyzer
 
         }
 
-        protected override bool HandleBody(Body b)
+        public override bool HandleBody(Body b)
         {
             _jointQueue.Add(b.Joints as IDictionary<JointType, Joint>);
             return true;

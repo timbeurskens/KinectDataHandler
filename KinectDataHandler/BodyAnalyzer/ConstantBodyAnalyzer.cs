@@ -21,7 +21,7 @@ namespace KinectDataHandler.BodyAnalyzer
 
         }
 
-        protected override bool HandleBody(Body b)
+        public override bool HandleBody(Body b)
         {
             var nw = CheckBody(b);
 

@@ -33,7 +33,7 @@ namespace KinectDataHandler.BodyAnalyzer
         /// <param name="b">Body object</param>
         /// <modifies>_n, _bodyLength</modifies>
         /// <returns>True when body data is correctly handled, false otherwise</returns>
-        protected override bool HandleBody(Body b)
+        public override bool HandleBody(Body b)
         {
             try
             {

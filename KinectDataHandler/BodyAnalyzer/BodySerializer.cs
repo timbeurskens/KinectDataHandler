@@ -21,7 +21,7 @@ namespace KinectDataHandler.BodyAnalyzer
         /// <param name="b">Body object instance</param>
         /// <pre>b.isTracked == true && b.trackingId == trackingId</pre>
         /// <returns></returns>
-        protected override bool HandleBody(Body b)
+        public override bool HandleBody(Body b)
         {
             var result = true;
 
