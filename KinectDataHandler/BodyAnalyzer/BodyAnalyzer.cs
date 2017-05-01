@@ -34,7 +34,7 @@ namespace KinectDataHandler.BodyAnalyzer
 
         public void SetSingleEvent(bool v) => _singleEvent = v;
 
-        public bool PassBody(Body b)
+        public virtual bool PassBody(Body b)
         {
             if (b.TrackingId != TrackingId) return false;
             return b.IsTracked && HandleBody(b);

@@ -8,6 +8,7 @@ namespace KinectDataHandler.Linear3DTools
     /// Properties: X, Y, Z
     /// Methods:
     /// </summary>
+    [Serializable]
     public class Vector3D : IVector3D
     {
         public static readonly Vector3D Origin3D = new Vector3D(0, 0, 0);

@@ -1,5 +1,8 @@
-﻿namespace KinectDataHandler.Linear3DTools
+﻿using System;
+
+namespace KinectDataHandler.Linear3DTools
 {
+    [Serializable]
     public class Plane3D : ISurface3D
     {
         private readonly double _a;

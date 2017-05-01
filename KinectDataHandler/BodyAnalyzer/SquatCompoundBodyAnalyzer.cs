@@ -16,27 +16,26 @@ namespace KinectDataHandler.BodyAnalyzer
             set { _footKneeConstantBodyAnalyzer.FloorPlane3D = value; }
         }
 
-        public SquatCompoundBodyAnalyzer(Body b) : base(b)
+        public SquatCompoundBodyAnalyzer(Body b, double startTreshold, double goalTreshold, int stepCount, double stabilityTreshold) : base(b)
         {
             _footKneeConstantBodyAnalyzer = new FootKneeConstantBodyAnalyzer(TrackingId)
             {
-                Treshold = Math.PI / 7
+                Treshold = stabilityTreshold
             };
-            _kneeAngleProgressiveBodyAnalyzer = new KneeAngleProgressiveBodyAnalyzer(TrackingId, Math.PI * 0.9, 10, Math.PI / 2);
+            _kneeAngleProgressiveBodyAnalyzer = new KneeAngleProgressiveBodyAnalyzer(TrackingId, startTreshold, stepCount, goalTreshold);
         }
 
-        public SquatCompoundBodyAnalyzer(ulong trackingId) : base(trackingId)
+        public SquatCompoundBodyAnalyzer(ulong trackingId, double startTreshold, double goalTreshold, int stepCount, double stabilityTreshold) : base(trackingId)
         {
             _footKneeConstantBodyAnalyzer = new FootKneeConstantBodyAnalyzer(TrackingId)
             {
-                Treshold = Math.PI / 7
+                Treshold = stabilityTreshold
             };
-            _kneeAngleProgressiveBodyAnalyzer = new KneeAngleProgressiveBodyAnalyzer(TrackingId, Math.PI * 0.9, 10, Math.PI / 2);
+            _kneeAngleProgressiveBodyAnalyzer = new KneeAngleProgressiveBodyAnalyzer(TrackingId, startTreshold, stepCount, goalTreshold);
         }
 
         public override Collection<ConstantBodyAnalyzer> GetConstantAnalyzers()
         {
-
             return new Collection<ConstantBodyAnalyzer>
             {
                 _footKneeConstantBodyAnalyzer

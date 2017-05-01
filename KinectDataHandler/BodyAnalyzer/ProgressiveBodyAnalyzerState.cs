@@ -5,6 +5,7 @@
         Failed,
         Success,
         Halfway,
-        Idle
+        Idle,
+        Started
     }
 }

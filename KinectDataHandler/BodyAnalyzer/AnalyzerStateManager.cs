@@ -30,7 +30,7 @@ namespace KinectDataHandler.BodyAnalyzer
         {
             if (_squatCompoundBodyAnalyzer == null)
             {
-                _squatCompoundBodyAnalyzer = new SquatCompoundBodyAnalyzer(b);
+                _squatCompoundBodyAnalyzer = new SquatCompoundBodyAnalyzer(b, Math.PI * 0.9, Math.PI / 2, 10, Math.PI / 7);
                 _squatCompoundBodyAnalyzer.ValueComputed += _squatCompoundBodyAnalyzer_ValueComputed1;
             }
 
@@ -60,6 +60,7 @@ namespace KinectDataHandler.BodyAnalyzer
 
             _squatCompoundBodyAnalyzer.PassBody(b);
             Console.WriteLine(_squatCompoundBodyAnalyzer.GetValue());
+            Console.WriteLine(_squatCompoundBodyAnalyzer.GetProgressiveAnalyzer().GetProgress());
 //            _lengthAnalyzer.PassBody(b);
 //            BodySerializer.PassBody(b);
 //            _footKneeConstantBody.PassBody(b);
@@ -70,7 +71,12 @@ namespace KinectDataHandler.BodyAnalyzer
 
         private void _squatCompoundBodyAnalyzer_ValueComputed1(ProgressiveBodyAnalyzerState value)
         {
-            Console.WriteLine(value);
+            //reset on fail or success
+//            if (value == ProgressiveBodyAnalyzerState.Success || value == ProgressiveBodyAnalyzerState.Failed)
+//            {
+//                _squatCompoundBodyAnalyzer.Reset();
+//            }
+//            Console.WriteLine(value);
         }
         
         private void _angleProgressive_ValueComputed(ProgressiveBodyAnalyzerState value)

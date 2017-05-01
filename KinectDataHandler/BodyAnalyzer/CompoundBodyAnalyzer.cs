@@ -54,8 +54,8 @@ namespace KinectDataHandler.BodyAnalyzer
                 
                 ProgressiveBodyAnalyzer = GetProgressiveAnalyzer();
             }
-            var result = ConstantAnalyzers.Select(analyzer => analyzer.HandleBody(b)).Aggregate(true, (current, r) => current && r);
-            var pr = ProgressiveBodyAnalyzer.HandleBody(b);
+            var result = ConstantAnalyzers.Select(analyzer => analyzer.PassBody(b)).Aggregate(true, (current, r) => current && r);
+            var pr = ProgressiveBodyAnalyzer.PassBody(b);
             result = result && pr;
             UpdateCompoundState();
             return result;
