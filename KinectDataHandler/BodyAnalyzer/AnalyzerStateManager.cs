@@ -23,7 +23,7 @@ namespace KinectDataHandler.BodyAnalyzer
         private void Kl_FloorPlaneAvailable(Plane3D p)
         {
             if (_footKneeConstantBody != null) _footKneeConstantBody.FloorPlane3D = p;
-            if (_squatCompoundBodyAnalyzer != null) _squatCompoundBodyAnalyzer.FloorPlane = p;
+            if (_squatCompoundBodyAnalyzer != null) _squatCompoundBodyAnalyzer.FloorPlane3D = p;
         }
 
         private void Kl_BodyDataAvailable(Body b)

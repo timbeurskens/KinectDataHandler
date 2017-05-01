@@ -14,9 +14,8 @@ namespace KinectDataHandler.BodyAnalyzer
 
         public event ValueComputedDelegate ValueComputed;
 
-        protected BodyAnalyzer(Body b)
+        protected BodyAnalyzer(Body b) : this(b.TrackingId)
         {
-            TrackingId = b.TrackingId;
         }
 
         protected BodyAnalyzer(ulong trackingId)
@@ -24,9 +23,8 @@ namespace KinectDataHandler.BodyAnalyzer
             TrackingId = trackingId;
         }
 
-        protected BodyAnalyzer(Body b, bool singleEvent) : this(b)
+        protected BodyAnalyzer(Body b, bool singleEvent) : this(b.TrackingId, singleEvent)
         {
-            _singleEvent = singleEvent;
         }
 
         protected BodyAnalyzer(ulong trackingId, bool singleEvent) : this(trackingId)
