@@ -59,5 +59,23 @@ namespace KinectDataHandler.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} connected.
+        /// </summary>
+        internal static string FeedbackComLink_connected {
+            get {
+                return ResourceManager.GetString("FeedbackComLink_connected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Packet sent.
+        /// </summary>
+        internal static string FeedbackComLink_SendToAll_Packet_sent {
+            get {
+                return ResourceManager.GetString("FeedbackComLink_SendToAll_Packet_sent", resourceCulture);
+            }
+        }
     }
 }

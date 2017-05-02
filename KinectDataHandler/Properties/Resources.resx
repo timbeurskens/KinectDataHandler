@@ -98,4 +98,10 @@
 	<resheader name="writer">
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
+  <data name="FeedbackComLink_connected" xml:space="preserve">
+    <value>{0} connected</value>
+  </data>
+  <data name="FeedbackComLink_SendToAll_Packet_sent" xml:space="preserve">
+    <value>Packet sent</value>
+  </data>
 </root>

@@ -4,6 +4,8 @@ using Microsoft.Kinect;
 namespace KinectDataHandler.BodyAnalyzer
 {
     /// <summary>
+    /// TODO: Allow softreset: go into reset state but only reset values when analyzer is ready for reset
+    /// TODO: (example: wait for IDLE state to perform reset)
     /// ProgressiveBodyAnalyzer
     /// A given property must progress to a given value.
     /// No fallbacks above a given treshold are allowed.
@@ -45,7 +47,6 @@ namespace KinectDataHandler.BodyAnalyzer
 
         private void UpdateAnalyzerState()
         {
-            Console.WriteLine("update");
             switch (State)
             {
                 case ProgressiveBodyAnalyzerState.Success:
@@ -54,9 +55,8 @@ namespace KinectDataHandler.BodyAnalyzer
                 case ProgressiveBodyAnalyzerState.Started:
                     if (CurrentStep >= NumSteps)
                     {
-                        State = ProgressiveBodyAnalyzerState.Halfway;
+                        UpdateStateChange(ProgressiveBodyAnalyzerState.Halfway);
                         Position = NumSteps;
-                        OnValueComputed(State);
                     }
                     else if (CurrentStep > 0)
                     {
@@ -66,25 +66,20 @@ namespace KinectDataHandler.BodyAnalyzer
                         }
                         else if (CurrentStep < Position - 1)
                         {
-                            Position = 0;
-                            State = ProgressiveBodyAnalyzerState.Failed;
-                            OnValueComputed(State);
+                            Fail();
                         }
                     }
                     break;
                 case ProgressiveBodyAnalyzerState.Idle:
                     if (CurrentStep > 0)
                     {
-                        State = ProgressiveBodyAnalyzerState.Started;
-                        OnValueComputed(State);
+                        UpdateStateChange(ProgressiveBodyAnalyzerState.Started);
                     }
                     break;
                 case ProgressiveBodyAnalyzerState.Halfway:
                     if (CurrentStep <= 0)
                     {
-                        State = ProgressiveBodyAnalyzerState.Success;
-                        Position = 0;
-                        OnValueComputed(State);
+                        Pass();
                     }
                     else if (CurrentStep < NumSteps)
                     {
@@ -94,9 +89,7 @@ namespace KinectDataHandler.BodyAnalyzer
                         }
                         else if (CurrentStep > Position + 1)
                         {
-                            Position = 0;
-                            State = ProgressiveBodyAnalyzerState.Failed;
-                            OnValueComputed(State);
+                            Fail();
                         }
                     }
                     break;
@@ -110,6 +103,26 @@ namespace KinectDataHandler.BodyAnalyzer
             var result = base.PassBody(b);
             UpdateAnalyzerState();
             return result;
+        }
+
+        protected void Fail()
+        {
+            UpdateStateChange(ProgressiveBodyAnalyzerState.Failed);
+            Position = 0;
+            CurrentStep = 0;
+        }
+
+        protected void Pass()
+        {
+            UpdateStateChange(ProgressiveBodyAnalyzerState.Success);
+            Position = 0;
+            CurrentStep = 0;
+        }
+
+        protected void UpdateStateChange(ProgressiveBodyAnalyzerState s)
+        {
+            State = s;
+            OnValueComputed(State);
         }
 
         protected double Map(double p)

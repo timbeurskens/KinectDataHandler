@@ -28,7 +28,7 @@ namespace KinectDataHandler.BodyAnalyzer
         {
             if (State == ProgressiveBodyAnalyzerState.Failed || State == ProgressiveBodyAnalyzerState.Success) return;
 
-            if (!GetConstant())
+            if (!GetConstant() && ProgressiveBodyAnalyzer.GetValue() != ProgressiveBodyAnalyzerState.Idle)
             {
                 State = ProgressiveBodyAnalyzerState.Failed;
                 OnValueComputed(State);

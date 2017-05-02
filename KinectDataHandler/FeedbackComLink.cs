@@ -2,22 +2,23 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
+using System.Text;
 using System.Threading;
-using System.Windows.Forms;
+using KinectDataHandler.Properties;
 
 namespace KinectDataHandler
 {
-    class FeedbackComLink
+    internal class FeedbackComLink
     {
         private readonly Socket _serverSocket;
         private readonly Thread _serverSocketThread;
         private readonly List<Socket> _clientSockets = new List<Socket>();
-        public readonly IPEndPoint _endPoint = new IPEndPoint(IPAddress.Any, 18283);
-
+        public readonly IPEndPoint EndPoint = new IPEndPoint(IPAddress.Any, 18283);
+        
         public FeedbackComLink()
         {
             _serverSocket = new Socket(SocketType.Stream, ProtocolType.Tcp) {Blocking = true};
-            _serverSocket.Bind(_endPoint);
+            _serverSocket.Bind(EndPoint);
             _serverSocketThread = new Thread(() =>
             {
                 while (true)
@@ -26,7 +27,7 @@ namespace KinectDataHandler
                     _clientSockets.Add(s);
                     new Thread(() =>
                     {
-                        Console.WriteLine(s.RemoteEndPoint.ToString() + " connected");
+                        Console.WriteLine(Resources.FeedbackComLink_connected, s.RemoteEndPoint);
                         while (s.Connected)
                         {
                             
@@ -62,10 +63,11 @@ namespace KinectDataHandler
                 return false;
             }
 
-            var packet = System.Text.Encoding.UTF8.GetBytes(msg);
+            var packet = Encoding.UTF8.GetBytes(msg);
 
             try
             {
+                
                 s.Send(packet);
             }
             catch
@@ -89,23 +91,19 @@ namespace KinectDataHandler
 
         public void SendToAll(string msg)
         {
-            Socket[] clientSockets = _clientSockets.ToArray();
-            
-            for(var i = 0; i < clientSockets.Length; i++)
-            {
-                var socket = clientSockets[i];
+            var clientSockets = _clientSockets.ToArray();
 
+            foreach (var socket in clientSockets)
+            {
                 if (!SendTo(socket, msg))
                 {
                     CloseClientConnection(socket);
                 }
                 else
                 {
-                    Console.WriteLine("Packet sent");
+                    Console.WriteLine(Resources.FeedbackComLink_SendToAll_Packet_sent);
                 }
-                
             }
-
         }
     }
 }
