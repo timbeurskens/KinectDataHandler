@@ -8,7 +8,7 @@ using KinectDataHandler.Properties;
 
 namespace KinectDataHandler
 {
-    internal class FeedbackComLink
+    internal class FeedbackComLink : IDisposable
     {
         private readonly Socket _serverSocket;
         private readonly Thread _serverSocketThread;
@@ -51,7 +51,15 @@ namespace KinectDataHandler
                 CloseClientConnection(socket);
             }
             _serverSocketThread.Abort();
-            _serverSocket.Shutdown(SocketShutdown.Both);
+            try
+            {
+                _serverSocket.Shutdown(SocketShutdown.Both);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+            
             _serverSocket.Close();
             _serverSocket.Dispose();
         }
@@ -104,6 +112,11 @@ namespace KinectDataHandler
                     Console.WriteLine(Resources.FeedbackComLink_SendToAll_Packet_sent);
                 }
             }
+        }
+
+        public void Dispose()
+        {
+            Close();
         }
     }
 }

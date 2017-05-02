@@ -104,4 +104,10 @@
   <data name="FeedbackComLink_SendToAll_Packet_sent" xml:space="preserve">
     <value>Packet sent</value>
   </data>
+  <data name="Program_Main_Closing" xml:space="preserve">
+    <value>Closing...</value>
+  </data>
+  <data name="Program_Main_Closed" xml:space="preserve">
+    <value>Closed</value>
+  </data>
 </root>

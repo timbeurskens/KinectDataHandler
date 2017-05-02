@@ -66,6 +66,11 @@ namespace KinectDataHandler.BodyAnalyzer
             ResetOnValueComputedEvent();
             DoReset();
         }
-        
+
+        public virtual void SoftReset()
+        {
+            
+        }
+
     }
 }

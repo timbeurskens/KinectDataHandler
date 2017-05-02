@@ -4,6 +4,9 @@ using Microsoft.Kinect;
 
 namespace KinectDataHandler.BodyAnalyzer
 {
+    /// <summary>
+    /// TODO: implement SoftReset for failed state
+    /// </summary>
     public abstract class CompoundBodyAnalyzer : BodyAnalyzer<ProgressiveBodyAnalyzerState>
     {
         protected ProgressiveBodyAnalyzerState State = ProgressiveBodyAnalyzerState.Idle;

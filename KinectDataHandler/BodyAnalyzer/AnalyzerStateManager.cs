@@ -4,7 +4,7 @@ using Microsoft.Kinect;
 
 namespace KinectDataHandler.BodyAnalyzer
 {
-    internal class AnalyzerStateManager
+    internal class AnalyzerStateManager : IDisposable
     {
         private SquatCompoundBodyAnalyzer _squatCompoundBodyAnalyzer;
         public BodyAnalyzer<string> BodySerializer;
@@ -43,12 +43,15 @@ namespace KinectDataHandler.BodyAnalyzer
 
         private void _squatCompoundBodyAnalyzer_ValueComputed1(ProgressiveBodyAnalyzerState value)
         {
-            //reset on fail or success
-            //            if (value == ProgressiveBodyAnalyzerState.Success || value == ProgressiveBodyAnalyzerState.Failed)
-            //            {
-            //                _squatCompoundBodyAnalyzer.Reset();
-            //            }
-            //            Console.WriteLine(value);
+            switch (value)
+            {
+                case ProgressiveBodyAnalyzerState.Success:
+                    _squatCompoundBodyAnalyzer.Reset();
+                    break;
+                case ProgressiveBodyAnalyzerState.Failed:
+                    _squatCompoundBodyAnalyzer.SoftReset();
+                    break;
+            }
         }
 
         private void _bodySerializer_ValueComputed(string value)
@@ -61,6 +64,11 @@ namespace KinectDataHandler.BodyAnalyzer
         {
             _squatCompoundBodyAnalyzer?.Reset();
             BodySerializer?.Reset();
+        }
+
+        public void Dispose()
+        {
+            _com.Dispose();
         }
     }
 }
