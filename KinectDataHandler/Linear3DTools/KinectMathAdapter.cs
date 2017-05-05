@@ -122,7 +122,8 @@ namespace KinectDataHandler.Linear3DTools
 
         public Vector3D GetVector3D(Body b)
         {
-            if (!b.Joints.TryGetValue(Joint1, out Joint j1) || !b.Joints.TryGetValue(Joint2, out Joint j2))
+            Joint j1, j2;
+            if (!b.Joints.TryGetValue(Joint1, out j1) || !b.Joints.TryGetValue(Joint2, out j2))
                 throw new NotTrackedException("Could not retrieve one or more joints.");
 
             if (j1.TrackingState != TrackingState.Tracked || j2.TrackingState != TrackingState.Tracked)
