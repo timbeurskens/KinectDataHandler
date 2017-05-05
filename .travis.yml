@@ -7,5 +7,7 @@ deploy:
   file: 
     - "KinectDataHandler/bin/Release/KinectDataHandler.exe"
     - "KinectDataHandler/bin/Release/Microsoft.Kinect.dll"
+  overwrite: true
+  skip_cleanup: true
   on:
-    repo: timbeurskens/KinectDataHandler
+    tags: true
