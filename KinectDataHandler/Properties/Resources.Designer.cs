@@ -77,5 +77,23 @@ namespace KinectDataHandler.Properties {
                 return ResourceManager.GetString("FeedbackComLink_SendToAll_Packet_sent", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Closed.
+        /// </summary>
+        internal static string Program_Main_Closed {
+            get {
+                return ResourceManager.GetString("Program_Main_Closed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Closing....
+        /// </summary>
+        internal static string Program_Main_Closing {
+            get {
+                return ResourceManager.GetString("Program_Main_Closing", resourceCulture);
+            }
+        }
     }
 }
