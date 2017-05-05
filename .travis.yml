@@ -1,0 +1,11 @@
+language: csharp
+solution: KinectDataHandler.sln
+deploy:
+  provider: releases
+  api_key:
+    secure: bPFNIC5UM1yiJk9mVqWCVeoRAScAXHgAk+7+nlP2wCGwzlMs9SKawmaqT+gHf9vvKXtJsbMB7A9bHeLJV03sfabI3qyYE9lw6bzYmHWXScLwjYWAOcKVn8Vc+0BAEsM0dtlcY3N/aCggTFHPHkDFRQUWpFylZA5Qw4mc4ggmHFLy8IcoQwZhdbyt7e1XEPCSOefFoyHPgcDrRRWkOxes6iFbiaEZV34OCoYJxieCdrYEiyeue6g2Sm40EVu2vcrwQRH8B/tDuEBkf0TXZvlBKx2tDrQswOdqKq1HOB04Cjx8fOoGN/wsTqHGJtSBOl5y2HDY2Jl4Xf+JlynSgrAW4WAXlpucArlUM5b+UYY/YoqQOl41W2IDalzpDKavLG0NqcdzCIGz0syqZaD67oLkYe2Z5DUoC83wz9K3F2JyUhgnj4Ec78qPebDNIyBUrRVg3QqsiZoDR6h+EU8Do7O46h0rpTR8cXkCDLWsvhvoHH3XjFOiTLSfCFAlPdBHI0dPkdnUL4pgt+yrQ6qMZYFtRePR9UsZc6QTBw0NCnnSMkRSA3IDJtwzrX0Whg8/aIKTg1oqY4/sOETo8KVe0+z4Wi/rMSBOy0RjUzwKz10zBC4OcY4kp68TUdxcUVnCb5Epc19JjzDXsTJkQgu3k+9an0YjCSVe27JymsBFVcrDSog=
+  file: 
+    - "KinectDataHandler/bin/Release/KinectDataHandler.exe"
+    - "KinectDataHandler/bin/Release/Microsoft.Kinect.dll"
+  on:
+    repo: timbeurskens/KinectDataHandler
