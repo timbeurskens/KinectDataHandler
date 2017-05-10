@@ -7,10 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KinectDataHandler", "Kinect
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KinectDataHandlerTest", "KinectDataHandlerTest\KinectDataHandlerTest.csproj", "{54083453-F5C6-4DFA-A66F-DEBD90DE124B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExternalCommunicationLibrary", "ExternalCommunicationLibrary\ExternalCommunicationLibrary.csproj", "{B590D70A-DB50-445B-80BE-A35E3308FF74}"
+EndProject
 Global
-	GlobalSection(Performance) = preSolution
-		HasPerformanceSessions = true
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -23,9 +22,16 @@ Global
 		{54083453-F5C6-4DFA-A66F-DEBD90DE124B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{54083453-F5C6-4DFA-A66F-DEBD90DE124B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{54083453-F5C6-4DFA-A66F-DEBD90DE124B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B590D70A-DB50-445B-80BE-A35E3308FF74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B590D70A-DB50-445B-80BE-A35E3308FF74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B590D70A-DB50-445B-80BE-A35E3308FF74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B590D70A-DB50-445B-80BE-A35E3308FF74}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
 	EndGlobalSection
 	GlobalSection(Performance) = preSolution
 		HasPerformanceSessions = true

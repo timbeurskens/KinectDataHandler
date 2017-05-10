@@ -43,9 +43,11 @@ namespace KinectDataHandler.BodyAnalyzer
 
         private void _squatCompoundBodyAnalyzer_ValueComputed1(ProgressiveBodyAnalyzerState value)
         {
+            Console.WriteLine(value);
             switch (value)
             {
                 case ProgressiveBodyAnalyzerState.Success:
+                    
                     _squatCompoundBodyAnalyzer.Reset();
                     break;
                 case ProgressiveBodyAnalyzerState.Failed:
