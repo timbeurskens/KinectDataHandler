@@ -53,12 +53,14 @@ namespace KinectDataHandler.Linear3DTools
                 Joint2 = j1.Joint1;
                 Joint1 = j1.Joint2;
                 Joint3 = j2.Joint2;
-            } else if (j1.Joint1 == j2.Joint2)
+            }
+            else if (j1.Joint1 == j2.Joint2)
             {
                 Joint2 = j1.Joint1;
                 Joint1 = j1.Joint2;
                 Joint3 = j2.Joint1;
-            } else if (j1.Joint2 == j2.Joint2)
+            }
+            else if (j1.Joint2 == j2.Joint2)
             {
                 Joint2 = j1.Joint2;
                 Joint1 = j1.Joint1;
@@ -79,7 +81,7 @@ namespace KinectDataHandler.Linear3DTools
 
         private void InitializeTuples()
         {
-            _t1 = new JointTuple(Joint2, Joint1);   
+            _t1 = new JointTuple(Joint2, Joint1);
             _t2 = new JointTuple(Joint2, Joint3);
         }
 

@@ -78,14 +78,15 @@ namespace KinectDataHandler.BodyAnalyzer
             var upperLength = JointTuple.GetTotalJointDistance(b, jcUpper);
 
             //average left right
-            var lowerLength = (JointTuple.GetTotalJointDistance(b, jcLowerLeft) + JointTuple.GetTotalJointDistance(b, jcLowerRight)) / 2;
+            var lowerLength = (JointTuple.GetTotalJointDistance(b, jcLowerLeft) +
+                               JointTuple.GetTotalJointDistance(b, jcLowerRight)) / 2;
 
             return upperLength + lowerLength;
         }
 
         public double GetBodyLength()
         {
-            var t = (FloodQueue<double>)_fq.Clone();
+            var t = (FloodQueue<double>) _fq.Clone();
             return t.Average();
         }
 

@@ -13,12 +13,10 @@ namespace KinectDataHandler.BodyAnalyzer
 
         protected ConstantBodyAnalyzer(Body b) : base(b)
         {
-
         }
 
         protected ConstantBodyAnalyzer(ulong trackingId) : base(trackingId)
         {
-
         }
 
         public override bool HandleBody(Body b)

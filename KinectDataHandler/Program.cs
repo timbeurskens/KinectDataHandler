@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Net;
 using System.Threading;
-using System.Windows.Forms;
 using ExternalCommunicationLibrary;
 using KinectDataHandler.BodyAnalyzer;
 using KinectDataHandler.Properties;
@@ -40,8 +39,8 @@ namespace KinectDataHandler
 //            kl.Close();
 //            sm.Dispose();
 //            Console.WriteLine(Resources.Program_Main_Closed);
-//
-//            return 0;
+
+            return 0;
         }
     }
 }

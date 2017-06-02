@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ExternalCommunicationLibrary
+﻿namespace ExternalCommunicationLibrary
 {
     public abstract class ClientMessage
     {
         protected abstract SocketClientMessageType GetMessageType();
         protected abstract string GetMessageContent();
 
-        private string GetStringData()
+        public string GetStringData()
         {
             var output = "";
             var content = GetMessageContent();
@@ -20,11 +14,6 @@ namespace ExternalCommunicationLibrary
             output += "\n";
             output += content + "\n";
             return output;
-        }
-
-        public byte[] GetBuffer()
-        {
-            return Encoding.ASCII.GetBytes(GetStringData());
         }
     }
 

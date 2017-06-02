@@ -12,7 +12,6 @@ namespace KinectDataHandler.BodyAnalyzer
 
         public FootKneeConstantBodyAnalyzer(Body b) : base(b)
         {
-
         }
 
         public FootKneeConstantBodyAnalyzer(ulong trackingId) : base(trackingId)
@@ -22,7 +21,7 @@ namespace KinectDataHandler.BodyAnalyzer
         protected override bool CheckBody(Body b)
         {
             if (FloorPlane3D == null) return true;
-            
+
             var n = FloorPlane3D.Normal();
 
             var angleL = 0.0;
@@ -35,9 +34,8 @@ namespace KinectDataHandler.BodyAnalyzer
             }
             catch (NotTrackedException)
             {
-                
             }
-            
+
             try
             {
                 var vjtr = _right.GetVector3D(b);
@@ -45,7 +43,6 @@ namespace KinectDataHandler.BodyAnalyzer
             }
             catch (NotTrackedException)
             {
-                
             }
 
             return angleL < Treshold && angleR < Treshold;

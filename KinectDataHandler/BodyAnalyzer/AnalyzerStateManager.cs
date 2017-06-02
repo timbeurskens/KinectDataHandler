@@ -26,7 +26,8 @@ namespace KinectDataHandler.BodyAnalyzer
         {
             if (_squatCompoundBodyAnalyzer == null)
             {
-                _squatCompoundBodyAnalyzer = new SquatCompoundBodyAnalyzer(b, Math.PI * 0.9, Math.PI / 2, 10, Math.PI / 7);
+                _squatCompoundBodyAnalyzer = new SquatCompoundBodyAnalyzer(b, Math.PI * 0.9, Math.PI / 2, 10,
+                    Math.PI / 7);
                 _squatCompoundBodyAnalyzer.ValueComputed += _squatCompoundBodyAnalyzer_ValueComputed1;
             }
 
@@ -47,7 +48,7 @@ namespace KinectDataHandler.BodyAnalyzer
             switch (value)
             {
                 case ProgressiveBodyAnalyzerState.Success:
-                    
+
                     _squatCompoundBodyAnalyzer.Reset();
                     break;
                 case ProgressiveBodyAnalyzerState.Failed:

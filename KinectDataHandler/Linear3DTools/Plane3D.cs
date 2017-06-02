@@ -20,7 +20,6 @@ namespace KinectDataHandler.Linear3DTools
 
         public Plane3D(IVector3D a, IVector3D b, IPoint3D c) : this(a.Cross(b), c)
         {
-            
         }
 
         public Plane3D(IVector3D n, IPoint3D b)
@@ -31,9 +30,9 @@ namespace KinectDataHandler.Linear3DTools
             _d = -(_a * b.X + _b * b.Y + _c * b.Z);
         }
 
-        public Plane3D(IPoint3D a, IPoint3D b, IPoint3D c) : this(Vector3D.FromPoints(a, b), Vector3D.FromPoints(a, c), a)
+        public Plane3D(IPoint3D a, IPoint3D b, IPoint3D c)
+            : this(Vector3D.FromPoints(a, b), Vector3D.FromPoints(a, c), a)
         {
-            
         }
 
         public bool IsOn(IPoint3D p)

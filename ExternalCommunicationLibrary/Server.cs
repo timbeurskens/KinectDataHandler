@@ -10,55 +10,56 @@ namespace ExternalCommunicationLibrary
     {
         private readonly TcpListener _server;
         private bool _acceptingConnections = true;
-        private readonly List<Socket> _connections;
-        
+        private readonly List<SocketConnection> _connections;
+
 
         public Server(IPAddress addr, int port)
         {
-            _connections = new List<Socket>();
+            _connections = new List<SocketConnection>();
             _server = new TcpListener(addr, port);
             _server.Start();
 
-            var t = new Thread((() =>
+            var t = new Thread(() =>
             {
                 while (_acceptingConnections)
                 {
                     if (_server.Pending())
                     {
-                        var socket = _server.AcceptSocket();
+                        var socket = _server.AcceptTcpClient();
 
                         do
                         {
                             Thread.Sleep(10);
                         } while (!socket.Connected);
 
-                        Console.WriteLine("Socket connected: " + socket.RemoteEndPoint);
+                        Console.WriteLine("Socket connected: " + socket.Client.RemoteEndPoint);
 
-                        var socketReceive = new Thread((() =>
-                        {
-                            while (socket.Connected)
-                            {
-                                Thread.Sleep(10);
-                            }
-                        }));
-                        socketReceive.Start();
-                       
-                        _connections.Add(socket);
+                        var sc = new SocketConnection(socket);
+
+                        _connections.Add(sc);
                     }
 
                     Thread.Sleep(10);
                 }
-            }));
+            });
             t.Start();
-            
+
+            Console.WriteLine("Now accepting connections...");
         }
 
         private void Send(int i, ClientMessage msg)
         {
             var s = _connections[i];
+
+            if (!s.IsActive)
+            {
+                StopConnection(i);
+                return;
+            }
+
             try
             {
-                s.Send(msg.GetBuffer());
+                s.Send(msg);
             }
             catch (SocketException e)
             {
@@ -78,15 +79,15 @@ namespace ExternalCommunicationLibrary
         private void StopConnection(int i)
         {
             var connection = _connections[i];
-            connection.Shutdown(SocketShutdown.Both);
             connection.Close();
+            connection.Dispose();
             _connections.RemoveAt(i);
-            Console.WriteLine("Connection closed");
+            Console.WriteLine("Connection closed (" + i + ")");
         }
-        
+
         public void Dispose()
         {
-            for(var i = _connections.Count - 1; i >= 0; i--)
+            for (var i = _connections.Count - 1; i >= 0; i--)
             {
                 StopConnection(i);
             }

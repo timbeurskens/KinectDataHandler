@@ -16,6 +16,7 @@ namespace KinectDataHandler
         public event FloorPlaneAvailableListener FloorPlaneAvailable;
 
         public delegate void BodyDataAvailableListener(Body b);
+
         public event BodyDataAvailableListener BodyDataAvailable;
 
         public bool IsOpen => _sensor.IsOpen;
@@ -39,7 +40,7 @@ namespace KinectDataHandler
             using (var frame = e.FrameReference.AcquireFrame())
             {
                 var fp = KinectMathAdapter.Plane3DFromVector4(frame.FloorClipPlane);
-                
+
                 OnFloorPlaneAvailable(fp);
 
                 var bodies = new Body[frame.BodyCount];

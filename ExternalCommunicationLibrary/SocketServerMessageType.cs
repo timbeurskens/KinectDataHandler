@@ -9,6 +9,5 @@
         ExerciseSessionLength, //set number of exercises per session
         ExerciseSeriesLength, //set number of continuous exercises
         ExerciseBreakLength, //set duration of break after n continuous exercises (seconds)
-
     }
 }
