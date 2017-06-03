@@ -1,20 +1,25 @@
 ﻿using System;
+using ExternalCommunicationLibrary;
 using KinectDataHandler.Linear3DTools;
 using Microsoft.Kinect;
 
 namespace KinectDataHandler.BodyAnalyzer
 {
-    internal class AnalyzerStateManager : IDisposable
+    internal class AnalyzerStateManager
     {
         private SquatCompoundBodyAnalyzer _squatCompoundBodyAnalyzer;
         public BodyAnalyzer<string> BodySerializer;
-        private readonly FeedbackComLink _com = new FeedbackComLink();
-
+        private readonly Server _server;
+        
         public AnalyzerStateManager(KinectLink kl)
         {
             kl.BodyDataAvailable += Kl_BodyDataAvailable;
             kl.FloorPlaneAvailable += Kl_FloorPlaneAvailable;
-            _com.Open();
+        }
+
+        public AnalyzerStateManager(KinectLink kl, Server s) : this(kl)
+        {
+            _server = s;
         }
 
         private void Kl_FloorPlaneAvailable(Plane3D p)
@@ -38,6 +43,7 @@ namespace KinectDataHandler.BodyAnalyzer
             }
 
             _squatCompoundBodyAnalyzer.PassBody(b);
+            BodySerializer.PassBody(b);
             Console.WriteLine(_squatCompoundBodyAnalyzer.GetValue());
             Console.WriteLine(_squatCompoundBodyAnalyzer.GetProgressiveAnalyzer().GetProgress());
         }
@@ -48,7 +54,6 @@ namespace KinectDataHandler.BodyAnalyzer
             switch (value)
             {
                 case ProgressiveBodyAnalyzerState.Success:
-
                     _squatCompoundBodyAnalyzer.Reset();
                     break;
                 case ProgressiveBodyAnalyzerState.Failed:
@@ -60,18 +65,14 @@ namespace KinectDataHandler.BodyAnalyzer
         private void _bodySerializer_ValueComputed(string value)
         {
             //Console.WriteLine(BodySerializer.GetValue());
-            _com.SendToAll(BodySerializer.GetValue());
+
+            _server?.Send(new SimpleMessage(MessageType.Body, BodySerializer.GetValue()));
         }
 
         public void Reset()
         {
             _squatCompoundBodyAnalyzer?.Reset();
             BodySerializer?.Reset();
-        }
-
-        public void Dispose()
-        {
-            _com.Dispose();
         }
     }
 }

@@ -87,9 +87,10 @@ namespace ExternalCommunicationLibrary
         {
             if (!_client.Connected) return;
 
-            //todo: fix modification issue
-            foreach (var t in _messageQueue)
+            var queueSize = _messageQueue.Count;
+            for (var i = 0; i < queueSize; i++)
             {
+                var t = _messageQueue[i];
                 var data = t.GetStringData();
                 //Console.WriteLine(data);
 
@@ -100,6 +101,11 @@ namespace ExternalCommunicationLibrary
                 catch (IOException exception)
                 {
                     Console.WriteLine(exception);
+                    Close();
+                }
+                catch (ObjectDisposedException disposedException)
+                {
+                    Console.WriteLine(disposedException);
                     Close();
                 }
             }
