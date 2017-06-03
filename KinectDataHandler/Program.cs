@@ -14,8 +14,10 @@ namespace KinectDataHandler
             var s = new Server(IPAddress.Any, 12345);
             while (true)
             {
-                s.Send(new SimpleClientMessage(SocketClientMessageType.Ping, "ping"));
-                Thread.Sleep(500);
+                s.Send(new SimpleMessage(MessageType.Ping, "ping"));
+                Thread.Sleep(1000);
+                s.Send(new ControlMessage(new Command(CommandType.ExerciseSelect, 0, 0)));
+                Thread.Sleep(1000);
             }
 
 //            var kl = new KinectLink();

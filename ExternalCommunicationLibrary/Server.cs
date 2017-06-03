@@ -47,7 +47,7 @@ namespace ExternalCommunicationLibrary
             Console.WriteLine("Now accepting connections...");
         }
 
-        private void Send(int i, ClientMessage msg)
+        private void Send(int i, Message msg)
         {
             var s = _connections[i];
 
@@ -68,7 +68,7 @@ namespace ExternalCommunicationLibrary
             }
         }
 
-        public void Send(ClientMessage msg)
+        public void Send(Message msg)
         {
             for (var i = _connections.Count - 1; i >= 0; i--)
             {

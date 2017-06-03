@@ -10,21 +10,21 @@ namespace ExternalCommunicationLibrary
 {
     class SocketConnection : IDisposable
     {
-        private TcpClient client;
-        private StreamReader reader;
-        private StreamWriter writer;
-        private BackgroundWorker senderWorker = new BackgroundWorker();
-        private List<ClientMessage> messageQueue = new List<ClientMessage>();
+        private readonly TcpClient _client;
+        private readonly StreamReader _reader;
+        private readonly StreamWriter _writer;
+        private readonly BackgroundWorker _senderWorker = new BackgroundWorker();
+        private readonly List<Message> _messageQueue = new List<Message>();
 
         public bool IsActive { get; private set; }
 
         public SocketConnection(TcpClient client)
         {
-            this.client = client;
-            reader = new StreamReader(client.GetStream(), Encoding.ASCII);
-            writer = new StreamWriter(client.GetStream(), Encoding.ASCII);
+            _client = client;
+            _reader = new StreamReader(client.GetStream(), Encoding.ASCII);
+            _writer = new StreamWriter(client.GetStream(), Encoding.ASCII);
 
-            senderWorker.DoWork += SenderWorker_DoWork;
+            _senderWorker.DoWork += SenderWorker_DoWork;
 
             IsActive = false;
 
@@ -38,7 +38,7 @@ namespace ExternalCommunicationLibrary
 
                     try
                     {
-                        line = reader.ReadLine();
+                        line = _reader.ReadLine();
                     }
                     catch (IOException e)
                     {
@@ -46,6 +46,7 @@ namespace ExternalCommunicationLibrary
                         Close();
                     }
 
+                    //todo: parse message contents and return valid message object
                     if (line != null)
                     {
                         Console.WriteLine(line);
@@ -70,16 +71,17 @@ namespace ExternalCommunicationLibrary
 
         private void SenderWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            if (!client.Connected) return;
+            if (!_client.Connected) return;
 
-            foreach (var t in messageQueue)
+            //todo: fix modification issue
+            foreach (var t in _messageQueue)
             {
                 var data = t.GetStringData();
                 //Console.WriteLine(data);
 
                 try
                 {
-                    writer.Write(data);
+                    _writer.Write(data);
                 }
                 catch (IOException exception)
                 {
@@ -87,24 +89,25 @@ namespace ExternalCommunicationLibrary
                     Close();
                 }
             }
-            writer.Flush();
+            _writer.Flush();
         }
 
-        public void Send(ClientMessage msg)
+        public void Send(Message msg)
         {
-            if (!client.Connected)
+            if (!_client.Connected)
             {
                 return;
             }
-            messageQueue.Add(msg);
-            senderWorker.RunWorkerAsync();
+            _messageQueue.Add(msg);
+            if(!_senderWorker.IsBusy)
+                _senderWorker.RunWorkerAsync();
         }
 
         public void Close()
         {
             try
             {
-                client.Close();
+                _client.Close();
             }
             catch (Exception e)
             {
@@ -115,9 +118,9 @@ namespace ExternalCommunicationLibrary
 
         public void Dispose()
         {
-            ((IDisposable) client)?.Dispose();
-            reader?.Dispose();
-            writer?.Dispose();
+            ((IDisposable) _client)?.Dispose();
+            _reader?.Dispose();
+            _writer?.Dispose();
         }
     }
 }
