@@ -16,6 +16,10 @@ namespace ExternalCommunicationLibrary
             Command = command;
         }
 
+        public ControlMessage()
+        {
+        }
+
         protected override MessageType GetMessageType()
         {
             return MessageType.Control;

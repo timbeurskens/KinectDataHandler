@@ -11,6 +11,10 @@
             _content = content;
         }
 
+        public SimpleMessage()
+        {
+        }
+
         protected override MessageType GetMessageType()
         {
             return _type;

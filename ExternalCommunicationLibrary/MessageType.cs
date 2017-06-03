@@ -5,14 +5,19 @@ namespace ExternalCommunicationLibrary
 {
     public enum MessageType
     {
-        [EnumTypeValue(typeof(Message))]
+        [EnumTypeValue(typeof(SimpleMessage))]
         Ping, //ping message
+        [EnumTypeValue(typeof(SimpleMessage))]
         Body, //raw body data
+        [EnumTypeValue(typeof(SimpleMessage))]
         Close,
+        [EnumTypeValue(typeof(SimpleMessage))]
         Handshake,
+        [EnumTypeValue(typeof(SimpleMessage))]
         Acknowledge,
         [EnumTypeValue(typeof(ControlMessage))]
         Control,
+        [EnumTypeValue(typeof(SimpleMessage))]
         Null
     }
 

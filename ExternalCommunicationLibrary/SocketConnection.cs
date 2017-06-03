@@ -16,10 +16,14 @@ namespace ExternalCommunicationLibrary
         private readonly BackgroundWorker _senderWorker = new BackgroundWorker();
         private readonly List<Message> _messageQueue = new List<Message>();
 
+        private readonly MessageParser _parser = new MessageParser();
+
         public bool IsActive { get; private set; }
 
         public SocketConnection(TcpClient client)
         {
+            _parser.MessageAvailable += _parser_MessageAvailable;
+
             _client = client;
             _reader = new StreamReader(client.GetStream(), Encoding.ASCII);
             _writer = new StreamWriter(client.GetStream(), Encoding.ASCII);
@@ -49,6 +53,7 @@ namespace ExternalCommunicationLibrary
                     //todo: parse message contents and return valid message object
                     if (line != null)
                     {
+                        _parser.FeedLine(line);
                         Console.WriteLine(line);
                     }
                     Thread.Sleep(10);
@@ -67,6 +72,13 @@ namespace ExternalCommunicationLibrary
                 IsActive = false;
             });
             socketReceive.Start();
+        }
+
+        private void _parser_MessageAvailable(Message m)
+        {
+            Console.WriteLine("-------------------");
+            Console.WriteLine(m);
+            Console.WriteLine("-------------------");
         }
 
         private void SenderWorker_DoWork(object sender, DoWorkEventArgs e)

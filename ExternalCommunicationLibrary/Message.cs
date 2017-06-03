@@ -2,6 +2,11 @@
 {
     public abstract class Message
     {
+        public Message()
+        {
+            
+        }
+
         protected abstract MessageType GetMessageType();
         protected abstract string GetMessageContent();
         public abstract Message ParseMessage(string content);

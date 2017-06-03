@@ -48,6 +48,8 @@ namespace ExternalCommunicationLibrary
 
         public void ReadHeaderLine(string line)
         {
+            Console.WriteLine(line);
+
             if (line.Length == 0 && _type != MessageType.Null)
             {
                 _headerCompleted = true;
@@ -66,17 +68,20 @@ namespace ExternalCommunicationLibrary
                     throw new Exception("could not parse header line");
                 }
 
-                var groupType = m.Groups["type"]?.Value;
-                var groupLength = m.Groups["length"]?.Value;
+                var groupType = m.Groups["type"];
+                var groupLength = m.Groups["length"];
 
-                if (groupLength != null)
+                Console.WriteLine(groupType);
+                Console.WriteLine(groupLength);
+
+                if (groupLength.Success)
                 {
-                    _bufferSize = int.Parse(groupLength);
+                    _bufferSize = int.Parse(groupLength.Value);
                 }
 
-                if (groupType == null) return;
+                if (!groupType.Success) return;
 
-                var res = Enum.TryParse(groupType, out _type);
+                var res = Enum.TryParse(groupType.Value, out _type);
 
                 if (!res)
                 {

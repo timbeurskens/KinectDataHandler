@@ -14,9 +14,9 @@ namespace ExternalCommunicationLibrary
 
         public Command(CommandType type, int modifierId, double modifierValue)
         {
-            this.Type = type;
-            this.ModifierId = modifierId;
-            this.ModifierValue = modifierValue;
+            Type = type;
+            ModifierId = modifierId;
+            ModifierValue = modifierValue;
         }
 
         public override string ToString()
