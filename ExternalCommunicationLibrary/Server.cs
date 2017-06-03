@@ -12,6 +12,9 @@ namespace ExternalCommunicationLibrary
         private bool _acceptingConnections = true;
         private readonly List<SocketConnection> _connections;
 
+        public delegate void MessageAvailableDelegate(Message m);
+
+        public event MessageAvailableDelegate MessageAvailable;
 
         public Server(IPAddress addr, int port)
         {
@@ -35,6 +38,7 @@ namespace ExternalCommunicationLibrary
                         Console.WriteLine("Socket connected: " + socket.Client.RemoteEndPoint);
 
                         var sc = new SocketConnection(socket);
+                        sc.MessageAvailable += Sc_MessageAvailable;
 
                         _connections.Add(sc);
                     }
@@ -45,6 +49,11 @@ namespace ExternalCommunicationLibrary
             t.Start();
 
             Console.WriteLine("Now accepting connections...");
+        }
+
+        private void Sc_MessageAvailable(Message m)
+        {
+            OnMessageAvailable(m);
         }
 
         private void Send(int i, Message msg)
@@ -93,6 +102,11 @@ namespace ExternalCommunicationLibrary
             }
             _acceptingConnections = false;
             _server.Stop();
+        }
+
+        protected virtual void OnMessageAvailable(Message m)
+        {
+            MessageAvailable?.Invoke(m);
         }
     }
 }

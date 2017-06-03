@@ -18,6 +18,10 @@ namespace ExternalCommunicationLibrary
 
         private readonly MessageParser _parser = new MessageParser();
 
+        public delegate void MessageAvailableDelegate(Message m);
+
+        public event MessageAvailableDelegate MessageAvailable;
+
         public bool IsActive { get; private set; }
 
         public SocketConnection(TcpClient client)
@@ -76,9 +80,7 @@ namespace ExternalCommunicationLibrary
 
         private void _parser_MessageAvailable(Message m)
         {
-            Console.WriteLine("-------------------");
-            Console.WriteLine(m);
-            Console.WriteLine("-------------------");
+            OnMessageAvailable(m);
         }
 
         private void SenderWorker_DoWork(object sender, DoWorkEventArgs e)
@@ -133,6 +135,11 @@ namespace ExternalCommunicationLibrary
             ((IDisposable) _client)?.Dispose();
             _reader?.Dispose();
             _writer?.Dispose();
+        }
+
+        protected virtual void OnMessageAvailable(Message m)
+        {
+            MessageAvailable?.Invoke(m);
         }
     }
 }

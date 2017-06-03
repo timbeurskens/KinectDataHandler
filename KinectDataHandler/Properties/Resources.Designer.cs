@@ -79,6 +79,15 @@ namespace KinectDataHandler.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%.
+        /// </summary>
+        internal static string MessageBreak {
+            get {
+                return ResourceManager.GetString("MessageBreak", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Closed.
         /// </summary>
         internal static string Program_Main_Closed {

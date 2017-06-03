@@ -13,6 +13,8 @@
 
         public SimpleMessage()
         {
+            _type = MessageType.Null;
+            _content = "";
         }
 
         protected override MessageType GetMessageType()

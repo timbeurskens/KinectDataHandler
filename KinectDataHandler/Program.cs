@@ -12,6 +12,9 @@ namespace KinectDataHandler
         private static int Main(string[] args)
         {
             var s = new Server(IPAddress.Any, 12345);
+
+            s.MessageAvailable += S_MessageAvailable;
+
             while (true)
             {
                 s.Send(new SimpleMessage(MessageType.Ping, "ping"));
@@ -43,6 +46,13 @@ namespace KinectDataHandler
 //            Console.WriteLine(Resources.Program_Main_Closed);
 
             return 0;
+        }
+
+        private static void S_MessageAvailable(Message m)
+        {
+            Console.WriteLine(Resources.MessageBreak);
+            Console.WriteLine(m.GetStringData());
+            Console.WriteLine(Resources.MessageBreak);
         }
     }
 }

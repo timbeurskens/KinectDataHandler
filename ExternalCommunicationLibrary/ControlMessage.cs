@@ -58,11 +58,11 @@ namespace ExternalCommunicationLibrary
 
             if (t == CommandType.Null || id == null || val == null)
             {
-                return null;
+                throw new Exception("could not parse control message");
             }
 
             Command = new Command(t, (int) id, (double) val);
-
+            
             return this;
         }
     }
