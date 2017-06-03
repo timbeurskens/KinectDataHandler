@@ -131,5 +131,11 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ExternalCommunicationLibrary\ExternalCommunicationLibrary.csproj">
+      <Project>{b590d70a-db50-445b-80be-a35e3308ff74}</Project>
+      <Name>ExternalCommunicationLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

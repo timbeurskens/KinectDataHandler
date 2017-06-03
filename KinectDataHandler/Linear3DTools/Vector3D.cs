@@ -92,11 +92,11 @@ namespace KinectDataHandler.Linear3DTools
 
         public IVector3D Cross(IVector3D vec)
         {
-            var xpart = (Vector3D)((Y * vec.Z - Z * vec.Y) * XUnit3D);
-            var ypart = (Vector3D)((Z * vec.X - X * vec.Z) * YUnit3D);
-            var zpart = (Vector3D)((X * vec.Y - Y * vec.X) * ZUnit3D);
+            var xpart = (Vector3D) ((Y * vec.Z - Z * vec.Y) * XUnit3D);
+            var ypart = (Vector3D) ((Z * vec.X - X * vec.Z) * YUnit3D);
+            var zpart = (Vector3D) ((X * vec.Y - Y * vec.X) * ZUnit3D);
 
-            return (Vector3D)(xpart + ypart) + zpart;
+            return (Vector3D) (xpart + ypart) + zpart;
         }
 
         public double Length()
@@ -237,7 +237,7 @@ namespace KinectDataHandler.Linear3DTools
 
         public IVector3D RotateY(double angle)
         {
-            return new Vector3D(X * Math.Cos(angle) + Z * Math.Sin(angle), Y, - X * Math.Sin(angle) + Z * Math.Cos(angle));
+            return new Vector3D(X * Math.Cos(angle) + Z * Math.Sin(angle), Y, -X * Math.Sin(angle) + Z * Math.Cos(angle));
         }
 
         public IVector3D RotateZ(double angle)

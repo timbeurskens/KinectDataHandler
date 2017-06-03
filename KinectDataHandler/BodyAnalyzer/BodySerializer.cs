@@ -37,9 +37,10 @@ namespace KinectDataHandler.BodyAnalyzer
                 _serializedBody += KinectMathAdapter.Point3DFromCameraSpacePoint(j.Value.Position) + "\n";
             }
 
-            _serializedBody += "[END_BODY]\n";
+            _serializedBody += "[END_BODY]";
 
             if (!result) return false;
+
             OnValueComputed(_serializedBody);
             ResetOnValueComputedEvent();
 

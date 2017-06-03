@@ -14,7 +14,7 @@ namespace KinectDataHandler
         private readonly Thread _serverSocketThread;
         private readonly List<Socket> _clientSockets = new List<Socket>();
         public readonly IPEndPoint EndPoint = new IPEndPoint(IPAddress.Any, 18283);
-        
+
         public FeedbackComLink()
         {
             _serverSocket = new Socket(SocketType.Stream, ProtocolType.Tcp) {Blocking = true};
@@ -30,7 +30,6 @@ namespace KinectDataHandler
                         Console.WriteLine(Resources.FeedbackComLink_connected, s.RemoteEndPoint);
                         while (s.Connected)
                         {
-                            
                         }
                         CloseClientConnection(s);
                     }).Start();
@@ -59,7 +58,7 @@ namespace KinectDataHandler
             {
                 Console.WriteLine(e);
             }
-            
+
             _serverSocket.Close();
             _serverSocket.Dispose();
         }
@@ -75,7 +74,6 @@ namespace KinectDataHandler
 
             try
             {
-                
                 s.Send(packet);
             }
             catch

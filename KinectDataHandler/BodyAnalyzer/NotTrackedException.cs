@@ -29,7 +29,6 @@ namespace KinectDataHandler.BodyAnalyzer
             SerializationInfo info,
             StreamingContext context) : base(info, context)
         {
-
         }
     }
 }

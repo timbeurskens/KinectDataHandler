@@ -62,9 +62,9 @@ namespace KinectDataHandlerTest
             {
                 var a = new Vector3D(r.Next(100), r.Next(100), r.Next(100));
                 var b = new Vector3D(r.Next(100), r.Next(100), r.Next(100));
-                var crossA = (Vector3D)a.Cross(b);
-                var crossB = (Vector3D)b.Cross(a);
-                
+                var crossA = (Vector3D) a.Cross(b);
+                var crossB = (Vector3D) b.Cross(a);
+
                 Console.WriteLine(a);
                 Console.WriteLine(b);
 
@@ -88,12 +88,12 @@ namespace KinectDataHandlerTest
         public void TestConstructor()
         {
             var a = new Vector3D(5);
-            
+
             Assert.AreEqual(5, a.X);
             Assert.AreEqual(5, a.Y);
             Assert.AreEqual(5, a.Z);
         }
-        
+
         [TestMethod]
         public void TestCrossProductSpecial1()
         {
@@ -105,7 +105,7 @@ namespace KinectDataHandlerTest
         {
             Assert.AreEqual(Vector3D.XUnit3D, Vector3D.YUnit3D.Cross(Vector3D.ZUnit3D));
         }
-        
+
         [TestMethod]
         public void TestCrossProductSpecial3()
         {

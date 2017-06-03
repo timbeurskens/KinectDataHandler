@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Kinect;
+﻿using Microsoft.Kinect;
 
 namespace KinectDataHandler.BodyAnalyzer
 {
@@ -8,7 +7,7 @@ namespace KinectDataHandler.BodyAnalyzer
         private bool _singleEvent = true;
         private bool _onValueComputedEventFired;
         protected internal ulong TrackingId;
-        
+
 
         public delegate void ValueComputedDelegate(T value);
 
@@ -69,8 +68,6 @@ namespace KinectDataHandler.BodyAnalyzer
 
         public virtual void SoftReset()
         {
-            
         }
-
     }
 }

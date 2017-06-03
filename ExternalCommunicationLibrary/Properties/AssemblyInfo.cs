@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("KinectDataHandler")]
+[assembly: AssemblyTitle("ExternalCommunicationLibrary")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Eindhoven University of Technology")]
-[assembly: AssemblyProduct("KinectDataHandler")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("ExternalCommunicationLibrary")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -19,7 +19,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("7c94d449-d43d-4ab7-99d4-333f772e1108")]
+[assembly: Guid("b590d70a-db50-445b-80be-a35e3308ff74")]
 
 // Version information for an assembly consists of the following four values:
 //

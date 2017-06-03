@@ -1,20 +1,25 @@
 ﻿using System;
+using ExternalCommunicationLibrary;
 using KinectDataHandler.Linear3DTools;
 using Microsoft.Kinect;
 
 namespace KinectDataHandler.BodyAnalyzer
 {
-    internal class AnalyzerStateManager : IDisposable
+    internal class AnalyzerStateManager
     {
         private SquatCompoundBodyAnalyzer _squatCompoundBodyAnalyzer;
         public BodyAnalyzer<string> BodySerializer;
-        private readonly FeedbackComLink _com = new FeedbackComLink();
-
+        private readonly Server _server;
+        
         public AnalyzerStateManager(KinectLink kl)
         {
             kl.BodyDataAvailable += Kl_BodyDataAvailable;
             kl.FloorPlaneAvailable += Kl_FloorPlaneAvailable;
-            _com.Open();
+        }
+
+        public AnalyzerStateManager(KinectLink kl, Server s) : this(kl)
+        {
+            _server = s;
         }
 
         private void Kl_FloorPlaneAvailable(Plane3D p)
@@ -26,7 +31,8 @@ namespace KinectDataHandler.BodyAnalyzer
         {
             if (_squatCompoundBodyAnalyzer == null)
             {
-                _squatCompoundBodyAnalyzer = new SquatCompoundBodyAnalyzer(b, Math.PI * 0.9, Math.PI / 2, 10, Math.PI / 7);
+                _squatCompoundBodyAnalyzer = new SquatCompoundBodyAnalyzer(b, Math.PI * 0.9, Math.PI / 2, 10,
+                    Math.PI / 7);
                 _squatCompoundBodyAnalyzer.ValueComputed += _squatCompoundBodyAnalyzer_ValueComputed1;
             }
 
@@ -37,12 +43,14 @@ namespace KinectDataHandler.BodyAnalyzer
             }
 
             _squatCompoundBodyAnalyzer.PassBody(b);
+            BodySerializer.PassBody(b);
             Console.WriteLine(_squatCompoundBodyAnalyzer.GetValue());
             Console.WriteLine(_squatCompoundBodyAnalyzer.GetProgressiveAnalyzer().GetProgress());
         }
 
         private void _squatCompoundBodyAnalyzer_ValueComputed1(ProgressiveBodyAnalyzerState value)
         {
+            Console.WriteLine(value);
             switch (value)
             {
                 case ProgressiveBodyAnalyzerState.Success:
@@ -57,18 +65,14 @@ namespace KinectDataHandler.BodyAnalyzer
         private void _bodySerializer_ValueComputed(string value)
         {
             //Console.WriteLine(BodySerializer.GetValue());
-            _com.SendToAll(BodySerializer.GetValue());
+
+            _server?.Send(new SimpleMessage(MessageType.Body, BodySerializer.GetValue()));
         }
 
         public void Reset()
         {
             _squatCompoundBodyAnalyzer?.Reset();
             BodySerializer?.Reset();
-        }
-
-        public void Dispose()
-        {
-            _com.Dispose();
         }
     }
 }

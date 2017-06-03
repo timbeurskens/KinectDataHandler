@@ -25,7 +25,8 @@ namespace KinectDataHandler.BodyAnalyzer
             Position = 0;
         }
 
-        protected ProgressiveBodyAnalyzer(ulong trackingId, double start, int steps, double end) : base(trackingId, false)
+        protected ProgressiveBodyAnalyzer(ulong trackingId, double start, int steps, double end)
+            : base(trackingId, false)
         {
             StartTreshold = start;
             NumSteps = steps;
@@ -139,11 +140,11 @@ namespace KinectDataHandler.BodyAnalyzer
                 case ProgressiveBodyAnalyzerState.Success:
                     return 1;
                 case ProgressiveBodyAnalyzerState.Halfway:
-                    return 0.5 + (1.0 - Position / (double)NumSteps) / 2.0;
+                    return 0.5 + (1.0 - Position / (double) NumSteps) / 2.0;
                 case ProgressiveBodyAnalyzerState.Idle:
                     return 0;
                 case ProgressiveBodyAnalyzerState.Started:
-                    return Position / (double)NumSteps / 2.0;
+                    return Position / (double) NumSteps / 2.0;
                 default:
                     throw new ArgumentOutOfRangeException();
             }

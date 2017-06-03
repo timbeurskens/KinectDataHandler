@@ -6,16 +6,15 @@ namespace KinectDataHandler.BodyAnalyzer
 {
     class BodySmoother : BodyAnalyzer<IReadOnlyDictionary<JointType, Joint>>
     {
-        private FloodQueue<IDictionary<JointType, Joint>> _jointQueue = new FloodQueue<IDictionary<JointType, Joint>>(3);
+        private readonly FloodQueue<IDictionary<JointType, Joint>> _jointQueue =
+            new FloodQueue<IDictionary<JointType, Joint>>(3);
 
         public BodySmoother(Body b) : base(b)
         {
-
         }
 
         public BodySmoother(ulong trackingId) : base(trackingId)
         {
-
         }
 
         public override bool HandleBody(Body b)
@@ -34,7 +33,6 @@ namespace KinectDataHandler.BodyAnalyzer
                 foreach (var joint in element)
                 {
                     var j = new Joint {Position = new CameraSpacePoint {X = 0}};
-
                 }
             }
 

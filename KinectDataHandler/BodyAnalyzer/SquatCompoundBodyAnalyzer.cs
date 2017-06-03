@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using KinectDataHandler.Linear3DTools;
 using Microsoft.Kinect;
 
@@ -30,22 +29,26 @@ namespace KinectDataHandler.BodyAnalyzer
             set { _footKneeConstantBodyAnalyzer.FloorPlane3D = value; }
         }
 
-        public SquatCompoundBodyAnalyzer(Body b, double startTreshold, double goalTreshold, int stepCount, double stabilityTreshold) : base(b)
+        public SquatCompoundBodyAnalyzer(Body b, double startTreshold, double goalTreshold, int stepCount,
+            double stabilityTreshold) : base(b)
         {
             _footKneeConstantBodyAnalyzer = new FootKneeConstantBodyAnalyzer(TrackingId)
             {
                 Treshold = stabilityTreshold
             };
-            _kneeAngleProgressiveBodyAnalyzer = new KneeAngleProgressiveBodyAnalyzer(TrackingId, startTreshold, stepCount, goalTreshold);
+            _kneeAngleProgressiveBodyAnalyzer = new KneeAngleProgressiveBodyAnalyzer(TrackingId, startTreshold,
+                stepCount, goalTreshold);
         }
 
-        public SquatCompoundBodyAnalyzer(ulong trackingId, double startTreshold, double goalTreshold, int stepCount, double stabilityTreshold) : base(trackingId)
+        public SquatCompoundBodyAnalyzer(ulong trackingId, double startTreshold, double goalTreshold, int stepCount,
+            double stabilityTreshold) : base(trackingId)
         {
             _footKneeConstantBodyAnalyzer = new FootKneeConstantBodyAnalyzer(TrackingId)
             {
                 Treshold = stabilityTreshold
             };
-            _kneeAngleProgressiveBodyAnalyzer = new KneeAngleProgressiveBodyAnalyzer(TrackingId, startTreshold, stepCount, goalTreshold);
+            _kneeAngleProgressiveBodyAnalyzer = new KneeAngleProgressiveBodyAnalyzer(TrackingId, startTreshold,
+                stepCount, goalTreshold);
         }
 
         public override Collection<ConstantBodyAnalyzer> GetConstantAnalyzers()

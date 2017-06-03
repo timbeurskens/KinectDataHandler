@@ -6,14 +6,19 @@ namespace KinectDataHandler.BodyAnalyzer
 {
     public class KneeAngleProgressiveBodyAnalyzer : ProgressiveBodyAnalyzer
     {
-        private readonly JointTriple _kneeLeft = new JointTriple(JointType.AnkleLeft, JointType.KneeLeft, JointType.HipLeft);
-        private readonly JointTriple _kneeRight = new JointTriple(JointType.AnkleRight, JointType.KneeRight, JointType.HipRight);
+        private readonly JointTriple _kneeLeft = new JointTriple(JointType.AnkleLeft, JointType.KneeLeft,
+            JointType.HipLeft);
 
-        public KneeAngleProgressiveBodyAnalyzer(Body b, double start, int steps, double end) : base(b, start, steps, end)
+        private readonly JointTriple _kneeRight = new JointTriple(JointType.AnkleRight, JointType.KneeRight,
+            JointType.HipRight);
+
+        public KneeAngleProgressiveBodyAnalyzer(Body b, double start, int steps, double end)
+            : base(b, start, steps, end)
         {
         }
 
-        public KneeAngleProgressiveBodyAnalyzer(ulong trackingId, double start, int steps, double end) : base(trackingId, start, steps, end)
+        public KneeAngleProgressiveBodyAnalyzer(ulong trackingId, double start, int steps, double end)
+            : base(trackingId, start, steps, end)
         {
         }
 
@@ -27,14 +32,14 @@ namespace KinectDataHandler.BodyAnalyzer
                 var avgAngle = (leftAngle + rightAngle) / 2;
                 var p = Map(avgAngle);
                 CurrentStep = (int) Math.Floor(p * NumSteps);
-                
+
                 //Console.WriteLine(_position);
             }
             catch (NotTrackedException)
             {
                 return false;
             }
-            
+
             return true;
         }
     }

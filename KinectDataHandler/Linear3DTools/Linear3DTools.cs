@@ -2,7 +2,6 @@
 
 namespace KinectDataHandler.Linear3DTools
 {
-
     internal class LineSeg3D : ICurve3D
     {
         public Vector3D Point1 { get; }

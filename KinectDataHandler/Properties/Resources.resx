@@ -110,4 +110,7 @@
   <data name="Program_Main_Closed" xml:space="preserve">
     <value>Closed</value>
   </data>
+  <data name="MessageBreak" xml:space="preserve">
+    <value>%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</value>
+  </data>
 </root>

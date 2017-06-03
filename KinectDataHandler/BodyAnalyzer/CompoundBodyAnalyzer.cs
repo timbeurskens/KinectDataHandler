@@ -15,14 +15,12 @@ namespace KinectDataHandler.BodyAnalyzer
 
         protected CompoundBodyAnalyzer(Body b) : base(b, false)
         {
-            
         }
 
         protected CompoundBodyAnalyzer(ulong trackingId) : base(trackingId, false)
         {
-            
         }
-        
+
 
         public abstract Collection<ConstantBodyAnalyzer> GetConstantAnalyzers();
         public abstract ProgressiveBodyAnalyzer GetProgressiveAnalyzer();
@@ -50,14 +48,15 @@ namespace KinectDataHandler.BodyAnalyzer
             if (ConstantAnalyzers == null)
             {
                 ConstantAnalyzers = GetConstantAnalyzers();
-                
             }
+
             if (ProgressiveBodyAnalyzer == null)
             {
-                
                 ProgressiveBodyAnalyzer = GetProgressiveAnalyzer();
             }
-            var result = ConstantAnalyzers.Select(analyzer => analyzer.PassBody(b)).Aggregate(true, (current, r) => current && r);
+
+            var result = ConstantAnalyzers.Select(analyzer => analyzer.PassBody(b))
+                .Aggregate(true, (current, r) => current && r);
             var pr = ProgressiveBodyAnalyzer.PassBody(b);
             result = result && pr;
             UpdateCompoundState();
