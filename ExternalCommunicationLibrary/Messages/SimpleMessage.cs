@@ -17,7 +17,7 @@
             _content = "";
         }
 
-        protected override MessageType GetMessageType()
+        public override MessageType GetMessageType()
         {
             return _type;
         }

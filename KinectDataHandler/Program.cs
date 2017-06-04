@@ -11,9 +11,10 @@ namespace KinectDataHandler
     {
         private static int Main(string[] args)
         {
-            var s = new Server(IPAddress.Any, 12345);
+            var i = 0;
+            var server = new Server(IPAddress.Any, 12345);
 
-            s.MessageAvailable += S_MessageAvailable;
+            server.MessageAvailable += S_MessageAvailable;
 
 //            while (true)
 //            {
@@ -26,7 +27,7 @@ namespace KinectDataHandler
             var kl = new KinectLink();
             kl.Open();
 
-            var sm = new AnalyzerStateManager(kl, s);
+            var sm = new AnalyzerStateManager(kl, server);
             ConsoleKeyInfo key;
 
             do
@@ -37,6 +38,10 @@ namespace KinectDataHandler
                     case 'r':
                         sm.Reset();
                         break;
+                    case 's':
+                        i++;
+                        server.Send(new ControlMessage(new Command(CommandType.ExerciseStatus, -1, i)));
+                        break;
                 }
                 Thread.Sleep(100);
             } while (key.KeyChar != 'q');
@@ -45,7 +50,7 @@ namespace KinectDataHandler
             Console.WriteLine(Resources.Program_Main_Closing);
             kl.Close();
             //sm.Dispose();
-            s.Dispose();
+            server.Dispose();
             Console.WriteLine(Resources.Program_Main_Closed);
 
             return 0;
@@ -53,9 +58,9 @@ namespace KinectDataHandler
 
         private static void S_MessageAvailable(Message m)
         {
-            Console.WriteLine(Resources.MessageBreak);
+            Console.WriteLine(Resources.MessageBreak_Begin);
             Console.WriteLine(m.GetStringData());
-            Console.WriteLine(Resources.MessageBreak);
+            Console.WriteLine(Resources.MessageBreak_End);
         }
     }
 }

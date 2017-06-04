@@ -79,11 +79,20 @@ namespace KinectDataHandler.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%.
+        ///   Looks up a localized string similar to %%%BEGIN%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%.
         /// </summary>
-        internal static string MessageBreak {
+        internal static string MessageBreak_Begin {
             get {
-                return ResourceManager.GetString("MessageBreak", resourceCulture);
+                return ResourceManager.GetString("MessageBreak_Begin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to %%%END%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%.
+        /// </summary>
+        internal static string MessageBreak_End {
+            get {
+                return ResourceManager.GetString("MessageBreak_End", resourceCulture);
             }
         }
         

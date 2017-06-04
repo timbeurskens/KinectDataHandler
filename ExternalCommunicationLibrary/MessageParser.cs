@@ -48,7 +48,7 @@ namespace ExternalCommunicationLibrary
 
         public void ReadHeaderLine(string line)
         {
-            Console.WriteLine(line);
+            line = line.Trim();
 
             if (line.Length == 0 && _type != MessageType.Null)
             {
@@ -59,7 +59,7 @@ namespace ExternalCommunicationLibrary
                     ComposeMessage();
                 }
             }
-            else
+            else if(line.Length > 0)
             {
                 var m = _pattern.Match(line);
 
@@ -70,9 +70,6 @@ namespace ExternalCommunicationLibrary
 
                 var groupType = m.Groups["type"];
                 var groupLength = m.Groups["length"];
-
-                Console.WriteLine(groupType);
-                Console.WriteLine(groupLength);
 
                 if (groupLength.Success)
                 {

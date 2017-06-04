@@ -110,7 +110,10 @@
   <data name="Program_Main_Closed" xml:space="preserve">
     <value>Closed</value>
   </data>
-  <data name="MessageBreak" xml:space="preserve">
-    <value>%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</value>
+  <data name="MessageBreak_Begin" xml:space="preserve">
+    <value>%%%BEGIN%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</value>
+  </data>
+  <data name="MessageBreak_End" xml:space="preserve">
+    <value>%%%END%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</value>
   </data>
 </root>

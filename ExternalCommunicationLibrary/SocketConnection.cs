@@ -53,12 +53,11 @@ namespace ExternalCommunicationLibrary
                         Console.WriteLine(e);
                         Close();
                     }
-
-                    //todo: parse message contents and return valid message object
+                    
                     if (line != null)
                     {
                         _parser.FeedLine(line);
-                        Console.WriteLine(line);
+                        //Console.WriteLine(line);
                     }
                     Thread.Sleep(10);
                 }
@@ -90,7 +89,7 @@ namespace ExternalCommunicationLibrary
             var queueSize = _messageQueue.Count;
             for (var i = 0; i < queueSize; i++)
             {
-                var t = _messageQueue[i];
+                var t = _messageQueue[0];
                 var data = t.GetStringData();
                 //Console.WriteLine(data);
 
@@ -108,6 +107,8 @@ namespace ExternalCommunicationLibrary
                     Console.WriteLine(disposedException);
                     Close();
                 }
+
+                _messageQueue.RemoveAt(0);
             }
             _writer.Flush();
         }

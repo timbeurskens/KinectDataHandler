@@ -1,5 +1,6 @@
 ﻿using System;
 using ExternalCommunicationLibrary;
+using ExternalCommunicationLibrary.Messages;
 using KinectDataHandler.Linear3DTools;
 using Microsoft.Kinect;
 
@@ -10,6 +11,8 @@ namespace KinectDataHandler.BodyAnalyzer
         private SquatCompoundBodyAnalyzer _squatCompoundBodyAnalyzer;
         public BodyAnalyzer<string> BodySerializer;
         private readonly Server _server;
+        private int _frameTransmitInterval = 5;
+        private int _frameTransmitCounter = 0;
         
         public AnalyzerStateManager(KinectLink kl)
         {
@@ -43,14 +46,24 @@ namespace KinectDataHandler.BodyAnalyzer
             }
 
             _squatCompoundBodyAnalyzer.PassBody(b);
-            BodySerializer.PassBody(b);
-            Console.WriteLine(_squatCompoundBodyAnalyzer.GetValue());
-            Console.WriteLine(_squatCompoundBodyAnalyzer.GetProgressiveAnalyzer().GetProgress());
+            
+            //Console.WriteLine(_squatCompoundBodyAnalyzer.GetValue());
+            //Console.WriteLine(_squatCompoundBodyAnalyzer.GetProgressiveAnalyzer().GetProgress());
+
+            if (_frameTransmitCounter == 0)
+            {
+                BodySerializer.PassBody(b);
+            }
+            _frameTransmitCounter = (_frameTransmitCounter + 1) % _frameTransmitInterval;
         }
 
         private void _squatCompoundBodyAnalyzer_ValueComputed1(ProgressiveBodyAnalyzerState value)
         {
             Console.WriteLine(value);
+
+            var c = new Command(CommandType.ExerciseStatus, (int) value, 0);
+            _server?.Send(new ControlMessage(c));
+
             switch (value)
             {
                 case ProgressiveBodyAnalyzerState.Success:
@@ -66,7 +79,7 @@ namespace KinectDataHandler.BodyAnalyzer
         {
             //Console.WriteLine(BodySerializer.GetValue());
 
-            _server?.Send(new SimpleMessage(MessageType.Body, BodySerializer.GetValue()));
+            _server?.Send(new BodyMessage(BodySerializer.GetValue()));
         }
 
         public void Reset()

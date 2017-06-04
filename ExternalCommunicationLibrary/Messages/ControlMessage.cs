@@ -20,7 +20,7 @@ namespace ExternalCommunicationLibrary
         {
         }
 
-        protected override MessageType GetMessageType()
+        public override MessageType GetMessageType()
         {
             return MessageType.Control;
         }

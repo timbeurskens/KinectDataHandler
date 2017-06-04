@@ -1,5 +1,6 @@
 using System;
 using System.Reflection;
+using ExternalCommunicationLibrary.Messages;
 
 namespace ExternalCommunicationLibrary
 {
@@ -7,11 +8,11 @@ namespace ExternalCommunicationLibrary
     {
         [EnumTypeValue(typeof(SimpleMessage))]
         Ping, //ping message
-        [EnumTypeValue(typeof(SimpleMessage))]
+        [EnumTypeValue(typeof(BodyMessage))]
         Body, //raw body data
         [EnumTypeValue(typeof(SimpleMessage))]
         Close,
-        [EnumTypeValue(typeof(SimpleMessage))]
+        [EnumTypeValue(typeof(HandshakeMessage))]
         Handshake,
         [EnumTypeValue(typeof(SimpleMessage))]
         Acknowledge,

@@ -2,10 +2,10 @@
 {
     public enum ProgressiveBodyAnalyzerState
     {
-        Failed,
-        Success,
-        Halfway,
-        Idle,
-        Started
+        Failed = 0,
+        Success = 1,
+        Halfway = 2,
+        Idle = 3,
+        Started = 4
     }
 }

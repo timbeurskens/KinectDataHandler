@@ -7,7 +7,7 @@
             
         }
 
-        protected abstract MessageType GetMessageType();
+        public abstract MessageType GetMessageType();
         protected abstract string GetMessageContent();
         public abstract Message ParseMessage(string content);
 
