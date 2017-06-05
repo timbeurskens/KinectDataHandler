@@ -1,5 +1,4 @@
 using System;
-using System.Reflection;
 using ExternalCommunicationLibrary.Messages;
 
 namespace ExternalCommunicationLibrary
@@ -22,7 +21,7 @@ namespace ExternalCommunicationLibrary
         Null
     }
 
-    public class EnumTypeValue : System.Attribute
+    public class EnumTypeValue : Attribute
     {
         public EnumTypeValue(Type val)
         {

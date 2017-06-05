@@ -96,12 +96,26 @@ namespace ExternalCommunicationLibrary
 
         public void Dispose()
         {
-            for (var i = _connections.Count - 1; i >= 0; i--)
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        ~Server()
+        {
+            Dispose(false);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
             {
-                StopConnection(i);
+                for (var i = _connections.Count - 1; i >= 0; i--)
+                {
+                    StopConnection(i);
+                }
+                _acceptingConnections = false;
+                _server.Stop();
             }
-            _acceptingConnections = false;
-            _server.Stop();
         }
 
         protected virtual void OnMessageAvailable(Message m)

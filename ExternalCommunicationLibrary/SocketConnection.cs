@@ -101,6 +101,7 @@ namespace ExternalCommunicationLibrary
                 {
                     Console.WriteLine(exception);
                     Close();
+                    break;
                 }
                 catch (ObjectDisposedException disposedException)
                 {

@@ -12,7 +12,7 @@ namespace KinectDataHandler.BodyAnalyzer
         public BodyAnalyzer<string> BodySerializer;
         private readonly Server _server;
         private int _frameTransmitInterval = 5;
-        private int _frameTransmitCounter = 0;
+        private int _frameTransmitCounter;
         
         public AnalyzerStateManager(KinectLink kl)
         {

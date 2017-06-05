@@ -2,6 +2,7 @@
 using System.Net;
 using System.Threading;
 using ExternalCommunicationLibrary;
+using ExternalCommunicationLibrary.Messages;
 using KinectDataHandler.BodyAnalyzer;
 using KinectDataHandler.Properties;
 
@@ -9,7 +10,7 @@ namespace KinectDataHandler
 {
     internal class Program
     {
-        private static int Main(string[] args)
+        private static int Main()
         {
             var i = 0;
             var server = new Server(IPAddress.Any, 12345);

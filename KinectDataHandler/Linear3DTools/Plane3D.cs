@@ -37,7 +37,7 @@ namespace KinectDataHandler.Linear3DTools
 
         public bool IsOn(IPoint3D p)
         {
-            return _a * p.X + _b * p.Y + _c * p.Z + _d == 0;
+            return Math.Abs(_a * p.X + _b * p.Y + _c * p.Z + _d) < double.Epsilon;
         }
 
         public IVector3D Normal(IPoint3D point)

@@ -1,4 +1,4 @@
-﻿namespace ExternalCommunicationLibrary
+﻿namespace ExternalCommunicationLibrary.Messages
 {
     public class SimpleMessage : Message
     {
