@@ -4,8 +4,6 @@ using Microsoft.Kinect;
 namespace KinectDataHandler.BodyAnalyzer
 {
     /// <summary>
-    /// TODO: Allow softreset: go into reset state but only reset values when analyzer is ready for reset
-    /// TODO: (example: wait for IDLE state to perform reset)
     /// ProgressiveBodyAnalyzer
     /// A given property must progress to a given value.
     /// No fallbacks above a given treshold are allowed.
@@ -48,6 +46,11 @@ namespace KinectDataHandler.BodyAnalyzer
 
         private void UpdateAnalyzerState()
         {
+            if (SoftResetActive && CurrentStep <= 0)
+            {
+                Reset();
+            }
+
             switch (State)
             {
                 case ProgressiveBodyAnalyzerState.Success:

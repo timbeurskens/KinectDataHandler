@@ -1,4 +1,5 @@
-﻿using Microsoft.Kinect;
+﻿using System;
+using Microsoft.Kinect;
 
 namespace KinectDataHandler.BodyAnalyzer
 {
@@ -22,6 +23,11 @@ namespace KinectDataHandler.BodyAnalyzer
         public override bool HandleBody(Body b)
         {
             var nw = CheckBody(b);
+
+            if (SoftResetActive && nw)
+            {
+                Reset();
+            }
 
             if (_isValid && !nw)
             {

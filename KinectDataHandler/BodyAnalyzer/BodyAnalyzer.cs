@@ -6,6 +6,8 @@ namespace KinectDataHandler.BodyAnalyzer
     {
         private bool _singleEvent = true;
         private bool _onValueComputedEventFired;
+        
+        protected bool SoftResetActive;
         protected internal ulong TrackingId;
 
 
@@ -60,14 +62,21 @@ namespace KinectDataHandler.BodyAnalyzer
             _onValueComputedEventFired = false;
         }
 
+        protected virtual void ResetSoftResetState()
+        {
+            SoftResetActive = false;
+        }
+
         public void Reset()
         {
+            ResetSoftResetState();
             ResetOnValueComputedEvent();
             DoReset();
         }
 
         public virtual void SoftReset()
         {
+            SoftResetActive = true;
         }
     }
 }
