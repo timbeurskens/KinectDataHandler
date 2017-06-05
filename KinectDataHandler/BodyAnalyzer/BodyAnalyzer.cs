@@ -6,7 +6,8 @@ namespace KinectDataHandler.BodyAnalyzer
     {
         private bool _singleEvent = true;
         private bool _onValueComputedEventFired;
-        
+
+        protected bool Active;
         protected bool SoftResetActive;
         protected internal ulong TrackingId;
 
@@ -20,6 +21,11 @@ namespace KinectDataHandler.BodyAnalyzer
         }
 
         protected BodyAnalyzer(ulong trackingId)
+        {
+            SetTrackingId(trackingId);
+        }
+
+        public void SetTrackingId(ulong trackingId)
         {
             TrackingId = trackingId;
         }
@@ -37,6 +43,8 @@ namespace KinectDataHandler.BodyAnalyzer
 
         public virtual bool PassBody(Body b)
         {
+            if (!Active) return false;
+            
             if (b.TrackingId != TrackingId) return false;
             return b.IsTracked && HandleBody(b);
         }
@@ -72,6 +80,16 @@ namespace KinectDataHandler.BodyAnalyzer
             ResetSoftResetState();
             ResetOnValueComputedEvent();
             DoReset();
+        }
+
+        public void Enable()
+        {
+            Active = true;
+        }
+
+        public void Disable()
+        {
+            Active = false;
         }
 
         public virtual void SoftReset()

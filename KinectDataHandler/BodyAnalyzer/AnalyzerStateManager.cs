@@ -11,7 +11,7 @@ namespace KinectDataHandler.BodyAnalyzer
         private SquatCompoundBodyAnalyzer _squatCompoundBodyAnalyzer;
         public BodyAnalyzer<string> BodySerializer;
         private readonly Server _server;
-        private int _frameTransmitInterval = 5;
+        private int _frameTransmitInterval = 2;
         private int _frameTransmitCounter;
         
         public AnalyzerStateManager(KinectLink kl)
@@ -37,22 +37,24 @@ namespace KinectDataHandler.BodyAnalyzer
                 _squatCompoundBodyAnalyzer = new SquatCompoundBodyAnalyzer(b, Math.PI * 0.9, Math.PI / 2, 10,
                     Math.PI / 7);
                 _squatCompoundBodyAnalyzer.ValueComputed += _squatCompoundBodyAnalyzer_ValueComputed1;
+                _squatCompoundBodyAnalyzer.Enable();
             }
 
             if (BodySerializer == null)
             {
                 BodySerializer = new BodySerializer(b);
                 BodySerializer.ValueComputed += _bodySerializer_ValueComputed;
+                BodySerializer.Enable();
             }
 
-            _squatCompoundBodyAnalyzer.PassBody(b);
+            _squatCompoundBodyAnalyzer?.PassBody(b);
             
             //Console.WriteLine(_squatCompoundBodyAnalyzer.GetValue());
             //Console.WriteLine(_squatCompoundBodyAnalyzer.GetProgressiveAnalyzer().GetProgress());
 
             if (_frameTransmitCounter == 0)
             {
-                BodySerializer.PassBody(b);
+                BodySerializer?.PassBody(b);
             }
             _frameTransmitCounter = (_frameTransmitCounter + 1) % _frameTransmitInterval;
         }
