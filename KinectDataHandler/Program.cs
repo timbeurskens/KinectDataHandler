@@ -10,12 +10,14 @@ namespace KinectDataHandler
 {
     internal class Program
     {
+        private static Server _server;
+
         private static int Main()
         {
             var i = 0;
-            var server = new Server(IPAddress.Any, 12345);
+            _server = new Server(IPAddress.Any, 12345);
 
-            server.MessageAvailable += S_MessageAvailable;
+            _server.MessageAvailable += S_MessageAvailable;
 
 //            while (true)
 //            {
@@ -28,7 +30,7 @@ namespace KinectDataHandler
             var kl = new KinectLink();
             kl.Open();
 
-            var stateManager = new AnalyzerStateManager(kl, server);
+            var stateManager = new AnalyzerStateManager(kl, _server);
             ConsoleKeyInfo key;
 
             do
@@ -41,7 +43,7 @@ namespace KinectDataHandler
                         break;
                     case 's':
                         i++;
-                        server.Send(new ControlMessage(new Command(CommandType.ExerciseStatus, -1, i)));
+                        _server.Send(new ControlMessage(new Command(CommandType.ExerciseStatus, -1, i)));
                         break;
                     case 'i':
                         stateManager.BodyReset();
@@ -60,7 +62,7 @@ namespace KinectDataHandler
             Console.WriteLine(Resources.Program_Main_Closing);
             kl.Close();
             //sm.Dispose();
-            server.Dispose();
+            _server.Dispose();
             Console.WriteLine(Resources.Program_Main_Closed);
 
             return 0;
@@ -71,6 +73,11 @@ namespace KinectDataHandler
             Console.WriteLine(Resources.MessageBreak_Begin);
             Console.WriteLine(m.GetStringData());
             Console.WriteLine(Resources.MessageBreak_End);
+
+            if (m.GetMessageType() == MessageType.Handshake)
+            {
+                _server.Send(new SimpleMessage(MessageType.Acknowledge, "ack"));
+            }
         }
     }
 }
