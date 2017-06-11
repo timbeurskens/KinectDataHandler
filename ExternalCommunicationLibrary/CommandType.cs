@@ -20,6 +20,8 @@
         BreakProgress, //progress value of break (float 0-1)
         EndBreak, //break end
 
+        BodyReset, //reset body index to match next available body
+
         Null
     }
 }

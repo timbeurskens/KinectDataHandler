@@ -116,4 +116,10 @@
   <data name="MessageBreak_End" xml:space="preserve">
     <value>%%%END%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</value>
   </data>
+  <data name="AnalyzerStateManager_StartSession_Session_started" xml:space="preserve">
+    <value>Session started</value>
+  </data>
+  <data name="AnalyzerStateManager_StopSession_Session_stopped" xml:space="preserve">
+    <value>Session stopped</value>
+  </data>
 </root>

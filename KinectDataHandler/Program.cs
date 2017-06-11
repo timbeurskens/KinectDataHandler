@@ -28,7 +28,7 @@ namespace KinectDataHandler
             var kl = new KinectLink();
             kl.Open();
 
-            var sm = new AnalyzerStateManager(kl, server);
+            var stateManager = new AnalyzerStateManager(kl, server);
             ConsoleKeyInfo key;
 
             do
@@ -37,11 +37,20 @@ namespace KinectDataHandler
                 switch (key.KeyChar)
                 {
                     case 'r':
-                        sm.Reset();
+                        stateManager.Reset();
                         break;
                     case 's':
                         i++;
                         server.Send(new ControlMessage(new Command(CommandType.ExerciseStatus, -1, i)));
+                        break;
+                    case 'i':
+                        stateManager.BodyReset();
+                        break;
+                    case '1':
+                        stateManager.StartSession();
+                        break;
+                    case '2':
+                        stateManager.StopSession();
                         break;
                 }
                 Thread.Sleep(100);

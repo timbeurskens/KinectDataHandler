@@ -7,7 +7,7 @@ namespace KinectDataHandler.BodyAnalyzer
         private bool _singleEvent = true;
         private bool _onValueComputedEventFired;
 
-        protected bool Active;
+        public bool Active { get; private set; }
         protected bool SoftResetActive;
         protected internal ulong TrackingId;
 
@@ -22,10 +22,10 @@ namespace KinectDataHandler.BodyAnalyzer
 
         protected BodyAnalyzer(ulong trackingId)
         {
-            SetTrackingId(trackingId);
+            TrackingId = trackingId;
         }
 
-        public void SetTrackingId(ulong trackingId)
+        public virtual void SetTrackingId(ulong trackingId)
         {
             TrackingId = trackingId;
         }

@@ -61,6 +61,24 @@ namespace KinectDataHandler.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Session started.
+        /// </summary>
+        internal static string AnalyzerStateManager_StartSession_Session_started {
+            get {
+                return ResourceManager.GetString("AnalyzerStateManager_StartSession_Session_started", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Session stopped.
+        /// </summary>
+        internal static string AnalyzerStateManager_StopSession_Session_stopped {
+            get {
+                return ResourceManager.GetString("AnalyzerStateManager_StopSession_Session_stopped", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} connected.
         /// </summary>
         internal static string FeedbackComLink_connected {

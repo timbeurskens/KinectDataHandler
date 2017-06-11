@@ -23,7 +23,7 @@ namespace ExternalCommunicationLibrary
         public event MessageAvailableDelegate MessageAvailable;
 
         public bool IsActive { get; private set; }
-
+        
         public SocketConnection(TcpClient client)
         {
             _parser.MessageAvailable += _parser_MessageAvailable;
@@ -59,6 +59,12 @@ namespace ExternalCommunicationLibrary
                         _parser.FeedLine(line);
                         //Console.WriteLine(line);
                     }
+
+                    if (!_senderWorker.IsBusy && _messageQueue.Count > 0)
+                    {
+                        _senderWorker.RunWorkerAsync();
+                    }
+
                     Thread.Sleep(10);
                 }
 
@@ -111,7 +117,17 @@ namespace ExternalCommunicationLibrary
 
                 _messageQueue.RemoveAt(0);
             }
-            _writer.Flush();
+
+            try
+            {
+                _writer.Flush();
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+                Close();
+            }
+            
         }
 
         public void Send(Message msg)
@@ -121,8 +137,10 @@ namespace ExternalCommunicationLibrary
                 return;
             }
             _messageQueue.Add(msg);
-            if(!_senderWorker.IsBusy)
+            if (!_senderWorker.IsBusy)
+            {
                 _senderWorker.RunWorkerAsync();
+            }
         }
 
         public void Close()

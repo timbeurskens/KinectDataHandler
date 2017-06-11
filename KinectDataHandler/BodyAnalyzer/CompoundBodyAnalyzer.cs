@@ -16,12 +16,13 @@ namespace KinectDataHandler.BodyAnalyzer
 
         protected CompoundBodyAnalyzer(Body b) : base(b, false)
         {
+            
         }
 
         protected CompoundBodyAnalyzer(ulong trackingId) : base(trackingId, false)
         {
+            
         }
-
 
         public abstract Collection<ConstantBodyAnalyzer> GetConstantAnalyzers();
         public abstract ProgressiveBodyAnalyzer GetProgressiveAnalyzer();
@@ -52,11 +53,16 @@ namespace KinectDataHandler.BodyAnalyzer
             if (ConstantAnalyzers == null)
             {
                 ConstantAnalyzers = GetConstantAnalyzers();
+                foreach (var a in ConstantAnalyzers)
+                {
+                    a.Enable();
+                }
             }
 
             if (ProgressiveBodyAnalyzer == null)
             {
                 ProgressiveBodyAnalyzer = GetProgressiveAnalyzer();
+                ProgressiveBodyAnalyzer.Enable();
             }
 
             var result = ConstantAnalyzers.Select(analyzer => analyzer.PassBody(b))
@@ -95,13 +101,27 @@ namespace KinectDataHandler.BodyAnalyzer
             ProgressiveBodyAnalyzer.SoftReset();
         }
 
+        public override void SetTrackingId(ulong trackingId)
+        {
+            base.SetTrackingId(trackingId);
+            
+            ProgressiveBodyAnalyzer?.SetTrackingId(trackingId);
+
+            if (ConstantAnalyzers == null) return;
+
+            foreach (var analyzer in ConstantAnalyzers)
+            {
+                analyzer.SetTrackingId(trackingId);
+            }
+        }
+
         protected override void DoReset()
         {
             foreach (var analyzer in ConstantAnalyzers)
             {
-                analyzer.Reset();
+                analyzer?.Reset();
             }
-            ProgressiveBodyAnalyzer.Reset();
+            ProgressiveBodyAnalyzer?.Reset();
             UpdateState(ProgressiveBodyAnalyzerState.Idle);
         }
     }

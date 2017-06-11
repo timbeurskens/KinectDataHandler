@@ -12,7 +12,7 @@ namespace ExternalCommunicationLibrary.Messages
             Command = command;
         }
 
-        public ControlMessage()
+        public ControlMessage() : this(new Command(CommandType.Null, 0, 0))
         {
         }
 
